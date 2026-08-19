@@ -3,6 +3,36 @@
   "private": false,
   "version": "0.0.2",
   "type": "module",
+  "description": "Fractabase Interactive membangun solusi digital yang mengubah kebutuhan bisnis menjadi software yang terstruktur, efisien, dan bermanfaat.",
+  "keywords": [
+    "fractabase",
+    "react",
+    "company profile",
+    "software house",
+    "digital solution",
+    "web development",
+    "mobile development",
+    "UI/UX design",
+    "software development"
+  ],
+  "author": {
+    "name": "Fractabase Interactive",
+    "email": "fractabaseinteractive@gmail.com"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/fractabase/company-profile.git"
+  },
+  "bugs": {
+    "url": "https://github.com/fractabase/company-profile/issues"
+  },
+  "homepage": "https://github.com/fractabase/company-profile#readme",
+  "engines": {
+    "node": ">=20.19.0",
+    "npm": ">=10.9.8"
+  },
+  "packageManager": "npm@10.9.8",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
