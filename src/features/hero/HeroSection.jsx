@@ -1,31 +1,31 @@
 import heroImage from "../../assets/images/image-1.svg";
 
-export default function HeroSection() {
+export default function HeroSection({ className }) {
   return (
     <>
-      <section className="relative" id="Home">
-        <div className="section-container min-h-dvh grid lg:grid-cols-3 items-center">
+      <section className={`relative dark:bg-dark-secondary/40 ${className}`} id="Home">
+        <div className="section-container max-sm:px-3 min-h-dvh grid lg:grid-cols-3 items-center">
           <div className="col-auto lg:col-span-2">
             <span className="border border-secondary text-secondary text-xs md:text-sm font-semibold bg-secondary/20 rounded-3xl lg:rounded-2xl py-2 lg:py-3 px-3 lg:px-4 uppercase">
               Software House · Digital Solutions
             </span>
 
-            <h1 className="text-4xl lg:text-7xl mb-4 mt-8 font-bold text-primary-color">
+            <h1 className="text-3xl lg:text-6xl mb-4 mt-4 lg:mt-8 font-bold text-primary-color">
               Mitra Pengembangan <span className="text-primary">Website</span>,{" "}
               <span className="text-primary">Aplikasi Mobile</span>, dan <span className="text-primary">SaaS</span>{" "}
               untuk Setiap Skala Bisnis.
             </h1>
 
-            <p className="text-lg lg:text-2xl text-secondary-color mb-6 max-w-4/5">
+            <p className="text-lg lg:text-xl text-secondary-color mb-6 lg:max-w-4/5">
               Kami merancang dan membangun, serta mengembangkan software untuk individu, bisnis kecil (UMKM), startup
               dan bisnis besar (korporat). Mulai dari mendiskusikan masalah dan konsep awal hingga menjadi produk
               digital yang siap digunakan.
             </p>
 
-            <div className="flex gap-3">
+            <div className="flex max-md:flex-col gap-3">
               <a
                 href="/#Contact"
-                className="py-2 px-5 border border-tertiary rounded-3xl bg-tertiary text-tertiary-ink text-xl transition hover:text-shadow-xs shadow hover:shadow-lg hover:translate-y-0.5"
+                className="py-2 px-5 border border-primary rounded-3xl bg-primary text-dark text-xl text-center transition hover:text-shadow-xs shadow hover:shadow-lg hover:translate-y-0.5"
                 role="button"
               >
                 Diskusi Rencana
@@ -33,7 +33,7 @@ export default function HeroSection() {
 
               <button
                 type="button"
-                className="py-2 px-5 border border-tertiary rounded-3xl text-xl transition hover:bg-tertiary shadow hover:shadow-lg hover:translate-y-0.5"
+                className="py-2 px-5 border border-primary rounded-3xl text-primary text-xl transition hover:bg-primary/10 shadow hover:shadow-lg hover:translate-y-0.5"
               >
                 Explore Plan
               </button>
