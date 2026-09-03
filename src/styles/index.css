@@ -1,10 +1,11 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
 :root {
   /* 60% | Primary/dominant: cyan-tinted dark surfaces */
   --primary-color: #35beeb;
   --primary-soft-color: #77ddff; /* primary | CTA utama, link, button, active state, icon penting, elemen brand, highlight tertentu */
-  --accent-color: #06b6d4; /* accent | highlight, decorative geometry, fractal pattern, gradient, small accent, hover/detail tertentu, visualisasi pertumbuhan/connection */
   --background-color: #f8fafc; /* light background | background utama, section, whitespace, card area tertentu. */
   --dark-background-color: #071619;
   --surface-color: #fff; /* surface | card, navigation, content surface, form, floating element. */
@@ -15,8 +16,8 @@
   --dark-text-color: #e9f7f5;
   --dark-text-mute-color: #8fb0ad;
   --dark-text-faint-color: #587472;
-  --line: rgba(41, 231, 205, 0.16);
-  --line-strong: rgba(41, 231, 205, 0.32);
+  --line: rgba(42, 58, 56, 0.16);
+  --line-strong: rgba(27, 37, 36, 0.32);
 
   /* 30% | Secondary */
   --secondary-color: #7b61ff;
@@ -24,7 +25,7 @@
   --dark-secondary-color: #172554; /* dark brand | hero section, footer, dark section, navbar tertentu, heading di area tertentu, background brand */
 
   /* 10% | Tertiary accent */
-  --tertiary-color: #fee2c5;
+  --tertiary-color: #f5a623; /* 10% | Tertiary AMBER — highlight hasil/pencapaian, badge "Hasil Nyata", checkmark penting, angka statistik. */
   --tertiary-ink: #241a12;
   --surface-glass: rgba(13, 34, 38, 0.88);
   --grad: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
@@ -33,16 +34,35 @@
   --ease: cubic-bezier(0.16, 0.8, 0.24, 1);
 }
 
+/* ===== DARK MODE brand-variant overrides (data-theme="dark") =====
+   Kept CLOSE to the light brand hues; only lightness nudged for contrast on a dark canvas.
+   Overriding the :root source variables cascades into the @theme aliases (--color-*) and every
+   utility that references them, so the `dark:` toggle restyles brand colors automatically. */
+[data-theme="dark"] {
+  --background-color: #0b1f24; /* base canvas (was #f8fafc) */
+  --surface-color: #102a30; /* cards/nav (was #fff) */
+  --primary-text-color: #eaf7f5; /* headings/ink (was #172c5c) */
+  --secondary-text-color: #9fb6b3; /* muted desc (was #475569) */
+  --primary-color: #4dc8f0; /* primary, lightness up for dark bg */
+  --primary-soft-color: #6fd6f5;
+  --secondary-color: #9683ff; /* secondary, lightness up for dark bg */
+  --secondary-soft-color: #a596ff;
+  --tertiary-color: #f7b53d; /* tertiary amber, slightly brighter on dark */
+  --tertiary-ink: #2a1c00;
+  --line: rgba(125, 200, 210, 0.18);
+  --line-strong: rgba(125, 200, 210, 0.32);
+}
+
 @theme {
   /* Primary (cyan) — 60% dominant */
   --color-primary: var(--primary-color);
   --color-primary-soft: var(--primary-soft-color);
-  --color-accent: var(--accent-color);
+  /* --color-accent removed together with --accent-color. */
   /* Text ink */
   --color-primary-color: var(--primary-text-color);
   --color-secondary-color: var(--secondary-text-color);
   /* Surfaces — 60% base */
-  --color-base: var(--background-color);
+  --color-background: var(--background-color);
   --color-surface: var(--surface-color);
   --color-dark: var(--dark-background-color);
   --color-dark-surface: var(--dark-surface-color);
@@ -69,6 +89,12 @@
   max-width: 80rem;
 }
 
+@media (width < 40rem) {
+  .section-container {
+    padding-inline: calc(0.25rem * 3);
+  }
+}
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 4rem;
@@ -76,13 +102,14 @@ html {
 
 ::selection {
   background-color: var(--secondary-color);
-  color: var(--tertiary-color);
+  color: var(--dark-text-color);
 }
 
 body {
   position: relative;
   min-height: 100%;
   background-color: var(--background-color);
+  color: var(--primary-text-color);
   line-height: 1.6;
 }
 
@@ -122,7 +149,7 @@ section {
   background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%2377ddff' fill-opacity='0.3' fill-rule='evenodd'%3E%3Cpath d='M5 0h1L0 6V5zM6 5v1H5z'/%3E%3C/g%3E%3C/svg%3E");
 }
 
-.text-2 {
-  background-color: #ebe8ff;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23a596ff' fill-opacity='0.4' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
+.test-2 {
+  /* background-color: #ebe8ff; */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23a596ff' fill-opacity='0.3' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
 }
