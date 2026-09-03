@@ -1,62 +1,84 @@
+import { Icons } from "../../components/common/Icons";
+
+const steps = [
+  {
+    num: "01",
+    icon: <Icons.ProblemSolving className="w-5 h-5" />,
+    title: "Konsultasi & Kebutuhan (Discovery)",
+    desc: "Diskusi mendalam untuk memahami masalah bisnis, analisis kebutuhan, dan menentukan scope proyek.",
+  },
+  {
+    num: "02",
+    icon: <Icons.Customization className="w-5 h-5" />,
+    title: "Perancangan UI/UX & Arsitektur (Design)",
+    desc: "Pembuatan wireframe, desain antarmuka modern yang ramah pengguna, dan alur arsitektur sistem.",
+  },
+  {
+    num: "03",
+    icon: <Icons.Code className="w-5 h-5" />,
+    title: "Pengembangan & Pengujian (Development & QA)",
+    desc: "Penulisan kode berspesifikasi tinggi diikuti pengujian ketat (quality assurance) untuk memastikan bebas bug.",
+  },
+  {
+    num: "04",
+    icon: <Icons.Check className="w-5 h-5" />,
+    title: "Peluncuran & Pendampingan (Deployment & Support)",
+    desc: "Aplikasi resmi dirilis ke server/store, disertai garansi pasca-peluncuran dan panduan penggunaan.",
+  },
+];
+
 export default function WorkProcessSection() {
   return (
-    <>
-      <section className="bg-secondary/10 min-h-max!" id="WorkProcess">
-        <div className="section-container my-20">
-          <h2 className="text-2xl md:text-4xl lg:text-5xl text-center text-primary-color font-bold mb-16">
+    <section id="WorkProcess">
+      <div className="section-container my-12 lg:my-20">
+        <header className="text-center mb-8 md:mb-12 pb-5 border-b border-line-strong">
+          <span className="text-sm font-medium uppercase tracking-widest text-secondary">-/ How We Work</span>
+
+          <h2 className="mt-3 text-2xl md:text-4xl lg:text-5xl font-bold text-primary-color">
             4 Langkah Mudah Memulai Proyek Bersama Kami
           </h2>
 
-          <div className="grid grid-cols-4 gap-6 relative">
-            <div className="absolute border-t-2 border-dotted border-primary/40 top-8 left-[12%] right-[12%] -z-10"></div>
-            <div className="text-center">
-              <span className="text-2xl text-surface bg-primary w-16 h-16 mx-auto mb-6 p-6 rounded-full flex items-center justify-center">
-                1
-              </span>
+          <p className="mt-3 text-lg lg:text-xl text-secondary-color max-w-xl mx-auto leading-relaxed">
+            Alur kerja terstruktur dari awal ide hingga produk matang — transparan, terukur, dan aman untuk bisnis Anda.
+          </p>
+        </header>
 
-              <h3 className="text-3xl mb-3">Konsultasi & Kebutuhan (Discovery) </h3>
+        <ol className="relative">
+          <span
+            aria-hidden="true"
+            className="absolute left-7 top-0 bottom-4 w-px -translate-x-1/2 bg-secondary md:left-1/2"
+          />
 
-              <p className="text-secondary-color">
-                Diskusi mendalam untuk memahami masalah bisnis, analisis kebutuhan, dan menentukan scope proyek.
-              </p>
-            </div>
+          {steps.map((step, i) => {
+            const isLeft = i % 2 === 0;
 
-            <div className="text-center">
-              <span className="text-2xl text-surface bg-primary w-16 h-16 mx-auto mb-6 p-6 rounded-full flex items-center justify-center">
-                2
-              </span>
+            return (
+              <li
+                key={step.num}
+                className="group relative pl-16 py-4 lg:py-12 md:grid md:grid-cols-2 md:items-center md:pl-0 md:py-8 lg:even:text-right"
+              >
+                <div
+                  aria-hidden="true"
+                  className="absolute left-7 top-4 z-10 flex h-12 w-12 -translate-x-1/2 items-center justify-center rounded-full bg-secondary text-dark font-mono font-bold shadow-sm ring-4 ring-background dark:ring-dark-surface transition-transform duration-300 group-hover:scale-105 md:left-1/2 md:top-1/2 md:-translate-y-1/2"
+                >
+                  {step.num}
+                </div>
 
-              <h3 className="text-3xl mb-3">Perancangan UI/UX & Arsitektur (Design)</h3>
+                <article
+                  className={
+                    "bg-surface border border-line rounded-2xl lg:mx-16 p-3 md:p-6 shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:border-secondary/40 hover:shadow-md " +
+                    (isLeft ? "md:col-start-1 md:pr-14 md:me-9" : "md:col-start-2 md:pl-14 md:ms-9")
+                  }
+                >
+                  <h3 className="mb-2 text-xl font-semibold leading-snug text-primary-color">{step.title}</h3>
 
-              <p className="text-secondary-color">
-                Pembuatan wireframe, desain antarmuka modern yang ramah pengguna, dan alur arsitektur sistem.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <span className="text-2xl text-surface bg-primary w-16 h-16 mx-auto mb-6 p-6 rounded-full flex items-center justify-center">
-                3
-              </span>
-              <h3 className="text-3xl mb-3">Pengembangan & Pengujian (Development & QA)</h3>
-
-              <p className="text-secondary-color">
-                Penulisan kode berspesifikasi tinggi diikuti pengujian ketat (quality assurance) untuk memastikan bebas
-                bug.
-              </p>
-            </div>
-
-            <div className="text-center">
-              <span className="text-2xl text-surface bg-primary w-16 h-16 mx-auto mb-6 p-6 rounded-full flex items-center justify-center">
-                4
-              </span>
-              <h3 className="text-3xl mb-3">Peluncuran & Pendampingan (Deployment & Support)</h3>
-              <p className="text-secondary-color">
-                Aplikasi resmi dirilis ke server/store, disertai garansi pasca-peluncuran dan panduan penggunaan.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
+                  <p className="text-sm leading-relaxed text-secondary-color">{step.desc}</p>
+                </article>
+              </li>
+            );
+          })}
+        </ol>
+      </div>
+    </section>
   );
 }
