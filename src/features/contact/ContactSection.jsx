@@ -1,18 +1,8 @@
 import { useState, useEffect, useRef } from "react";
 import { Card, CardContent } from "../../components/common/Card";
 import { Icons } from "../../components/common/Icons";
-
-const PROJECT_TYPES = ["Web Application", "Mobile App", "Custom Software", "System Integration", "IT Talent"];
-
-const BUDGET_RANGES = [
-  "< Rp 10 Juta",
-  "Rp 10 - 50 Juta",
-  "Rp 50 - 200 Juta",
-  "> Rp 200 Juta",
-  "Belum Tahu / Perlu Diskusi",
-];
-
-const TIME_TARGETS = ["Secepatnya", "1-2 Minggu", "1 Bulan", "2-3 Bulan", "Belum Pasti / Masih Riset"];
+import { PROJECT_TYPES, BUDGET_RANGES, TIME_TARGETS, COUNTRY_CODES } from "../../data/contactFormData";
+import { contactInfo } from "../../data/contactInfo";
 
 function CountryCodeDropdown({ value, onChange, codes }) {
   const [open, setOpen] = useState(false);
@@ -20,13 +10,13 @@ function CountryCodeDropdown({ value, onChange, codes }) {
   const ref = useRef(null);
   const inputRef = useRef(null);
 
-  const selected = codes.find((c) => c.code === value) || codes[0];
+  const selected = codes.find((code) => code.code === value) || codes[0];
 
   const filtered = codes.filter(
-    (c) =>
-      c.country.toLowerCase().includes(query.toLowerCase()) ||
-      c.code.includes(query) ||
-      c.label.includes(query)
+    (code) =>
+      code.country.toLowerCase().includes(query.toLowerCase()) ||
+      code.code.includes(query) ||
+      code.label.includes(query),
   );
 
   useEffect(() => {
@@ -76,9 +66,7 @@ function CountryCodeDropdown({ value, onChange, codes }) {
           </div>
           <ul className="overflow-y-auto max-h-48 py-1">
             {filtered.length === 0 ? (
-              <li className="px-3 py-2 text-sm text-secondary-color/60 text-center">
-                Tidak ditemukan
-              </li>
+              <li className="px-3 py-2 text-sm text-secondary-color/60 text-center">Tidak ditemukan</li>
             ) : (
               filtered.map((c) => (
                 <li key={c.code}>
@@ -104,16 +92,6 @@ function CountryCodeDropdown({ value, onChange, codes }) {
     </div>
   );
 }
-
-const COUNTRY_CODES = [
-  { code: "62", label: "+62", country: "Indonesia", flag: "🇮🇩" },
-  { code: "60", label: "+60", country: "Malaysia", flag: "🇲🇾" },
-  { code: "65", label: "+65", country: "Singapura", flag: "🇸🇬" },
-  { code: "66", label: "+66", country: "Thailand", flag: "🇹🇭" },
-  { code: "84", label: "+84", country: "Vietnam", flag: "🇻🇳" },
-  { code: "63", label: "+63", country: "Filipina", flag: "🇵🇭" },
-  { code: "673", label: "+673", country: "Brunei", flag: "🇧🇳" },
-];
 
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -333,33 +311,6 @@ export default function ContactSection() {
     }
   };
 
-  const contactInfo = [
-    {
-      icon: <Icons.Mail className="w-7 h-7" />,
-      label: "Email",
-      value: "fractabaseinteractive@gmail.com",
-      note: "Untuk dokumen RFQ / Penawaran Resmi",
-    },
-    {
-      icon: <Icons.WhatsApp className="w-7 h-7" />,
-      label: "WhatsApp",
-      value: "+62 812-3456-7890",
-      note: "Chat langsung untuk respon cepat",
-    },
-    {
-      icon: <Icons.Location className="w-7 h-7" />,
-      label: "Location",
-      value: "PT. Fractabase Interactive",
-      note: "Kota Bekasi, Indonesia",
-    },
-    {
-      icon: <Icons.Time className="w-7 h-7" />,
-      label: "Working Hours",
-      value: "Flexible",
-      note: "Respons 1x24 jam (Email/WA). Jadwal pertemuan: 09:00-17:00 WIB",
-    },
-  ];
-
   return (
     <>
       <section id="Contact">
@@ -383,20 +334,24 @@ export default function ContactSection() {
           <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1fr] gap-10 lg:gap-16 items-start">
             {/* Left: value proposition + contact info */}
             <div className="space-y-3">
-              {contactInfo.map((item) => (
-                <div
-                  key={item.label}
-                  className="flex max-md:flex-col lg:items-center gap-4 mb-6 pb-2 border-b border-line"
-                >
-                  <div className="w-10 h-10 flex items-center justify-center text-secondary shrink-0">{item.icon}</div>
+              {contactInfo.map((item, idx) => {
+                const Icon = item.icon;
+                return (
+                  <div key={idx} className="flex max-md:flex-col lg:items-center gap-4 mb-6 pb-2 border-b border-line">
+                    <div className="w-10 h-10 flex items-center justify-center text-secondary shrink-0">
+                      <Icon className="w-7 h-7" />
+                    </div>
 
-                  <div className="flex flex-col gap-1 mb-2">
-                    <h3 className="text-xs font-semibold text-secondary-color uppercase tracking-wide">{item.label}</h3>
-                    <p className="font-semibold text-primary-color mt-0.5 break-all">{item.value}</p>
-                    <p className="text-xs text-secondary-color mt-0.5">{item.note}</p>
+                    <div className="flex flex-col gap-1 mb-2">
+                      <h3 className="text-xs font-semibold text-secondary-color uppercase tracking-wide">
+                        {item.label}
+                      </h3>
+                      <p className="font-semibold text-primary-color mt-0.5 break-all">{item.value}</p>
+                      <p className="text-xs text-secondary-color mt-0.5">{item.note}</p>
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
 
             {/* Right: contact form */}
