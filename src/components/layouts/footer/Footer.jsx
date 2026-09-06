@@ -34,12 +34,12 @@ const socialLinks = [
   { key: "github", label: "Github", icon: Icons.Github, href: "https://github.com/" },
   { key: "linkedin", label: "LinkedIn", icon: Icons.LinkedIn, href: "https://linkedin.com/" },
   { key: "whatsapp", label: "WhatsApp", icon: Icons.WhatsApp, href: "https://wa.me/6281234567890" },
-  { key: "email", label: "Email", icon: Icons.Mail, href: "mailto:hello@fractabase-interactive.com" },
+  { key: "email", label: "Email", icon: Icons.Mail, href: "mailto:fractabaseinteractive@gmail.com" },
 ];
 
 const policies = [
-  { label: "Policy", href: "#" },
-  { label: "Privacy", href: "#" },
+  { label: "Kebijakan Privasi", href: "#" },
+  { label: "Syarat dan Ketentuan", href: "#" },
 ];
 
 const footerYear = new Date().getFullYear();
@@ -68,10 +68,10 @@ function ContactCta() {
   return (
     <a
       href="#Contact"
-      className="lg:mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 font-semibold text-dark transition duration-200 hover:brightness-95"
+      className="lg:mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 font-semibold text-dark transition duration-200 hover:brightness-95 group"
     >
-      <span>Konsultasi Gratis</span>
-      <Icons.ArrowRight className="h-5 w-5" />
+      <span>Diskusikan Proyek</span>
+      <Icons.ArrowRight className="h-5 w-5 group-hover:translate-x-2 transition-transform duration-200 ease-(--ease)" />
     </a>
   );
 }
@@ -83,10 +83,10 @@ export default function Footer() {
     <footer className="bg-primary/10 dark:bg-dark-secondary/10 text-primary-color">
       <div className="section-container py-16 md:py-20">
         {/* Grid 4 kolom: brand (col-span-2 di md/lg), Navigasi, Kontak, Sosial */}
-        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 md:gap-10 lg:grid-cols-5 lg:gap-12">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5">
           {/* Kolom 1 — Brand & Deskripsi (paling lebar) */}
-          <div className="md:col-span-3 md:pr-6">
-            <h1 className="text-4xl font-bold tracking-tight text-primary md:text-5xl">
+          <div className="md:col-span-2 md:pr-6">
+            <h1 className="text-3xl font-bold tracking-tight text-primary md:text-4xl">
               Fractabase{" "}
               <span className="relative inline-flex text-primary-color">
                 <span>Interactive</span>
@@ -94,8 +94,8 @@ export default function Footer() {
               </span>
             </h1>
             <p className="mt-5 max-w-md leading-relaxed text-primary-color/80">
-              Software house yang membangun fondasi digital bisnis Anda — dari website, aplikasi mobile, hingga sistem
-              internal. Struktur sederhana yang tumbuh menjadi solusi interaktif yang andal.
+              Software house penyedia solusi digital terintegrasi. Layanan kami mencakup perancangan website, aplikasi
+              mobile, hingga sistem internal perusahaan yang berorientasi pada hasil.
             </p>
           </div>
 
@@ -119,7 +119,7 @@ export default function Footer() {
           </div>
 
           {/* Kolom 3 — Kontak */}
-          <div>
+          <div className="md:-ml-14">
             <ColumnHeading>Kontak</ColumnHeading>
             <ul className="flex flex-col gap-4">
               {contactInfo.map((item) => {
@@ -151,21 +151,21 @@ export default function Footer() {
           </div>
 
           {/* Kolom 4 — Sosial */}
-          <div className="md:col-span-2 lg:col-span-1">
+          <div className="max-lg:space-y-4">
             <ColumnHeading>Sosial</ColumnHeading>
             <div className="flex gap-3">
               {socialLinks.map((item) => (
                 <SocialIcon key={item.key} label={item.label} icon={item.icon} href={item.href} />
               ))}
             </div>
+            <ContactCta />
           </div>
-          <ContactCta />
         </div>
 
         {/* Bottom bar — dipisah dengan border-top, padding sendiri */}
         <div className="mt-8 lg:mt-14 border-t border-primary/20 pt-6">
           <div className="flex flex-col items-center gap-3 text-center text-sm text-primary-color/70 sm:flex-row sm:justify-between sm:text-left">
-            <p>© Fractabase Interactive {footerYear} | All rights reserved.</p>
+            <p>© {footerYear} Fractabase Interactive. Hak cipta dilindungi.</p>
 
             <div className="flex items-center gap-4">
               <ThemeToggle />
