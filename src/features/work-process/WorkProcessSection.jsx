@@ -1,37 +1,4 @@
-import { Icons } from "../../components/common/Icons";
-
-const steps = [
-  {
-    num: "01",
-    icon: <Icons.ProblemSolving className="w-5 h-5" />,
-    title: "Konsultasi & Kebutuhan (Discovery)",
-    desc: "Sebelum menulis satu baris kode, kami pahami dulu masalah bisnis Anda dan susun kebutuhan serta scope proyek bersama-sama.",
-  },
-  {
-    num: "02",
-    icon: <Icons.Customization className="w-5 h-5" />,
-    title: "Perancangan UI/UX & Arsitektur (Design)",
-    desc: "Wireframe, desain antarmuka yang ramah pengguna, dan arsitektur sistem kami susun di tahap ini, jadi Anda tahu persis seperti apa produknya sebelum masuk development.",
-  },
-  {
-    num: "03",
-    icon: <Icons.Code className="w-5 h-5" />,
-    title: "Pengembangan & Pengujian (Development & QA)",
-    desc: "Tim kami menulis kode sesuai spesifikasi, kemudian menguji setiap fitur secara ketat sampai bebas bug.",
-  },
-  {
-    num: "04",
-    icon: <Icons.Check className="w-5 h-5" />,
-    title: "Peluncuran & Pendampingan (Deployment & Support)",
-    desc: "Setelah aplikasi rilis ke server atau app store, kami tetap dampingi Anda lewat garansi pasca-peluncuran dan panduan penggunaan.",
-  },
-  {
-    num: "05",
-    icon: <Icons.Growth className="w-5 h-5" />,
-    title: "Pemeliharaan & Pengembangan Lanjutan (Maintenance & Improvement)",
-    desc: "Produk yang sudah rilis tetap kami pantau dan kembangkan sesuai kebutuhan bisnis Anda yang terus berubah.",
-  },
-];
+import { workProcessSteps } from "../../data/workProcessSteps";
 
 export default function WorkProcessSection({ className }) {
   return (
@@ -55,7 +22,7 @@ export default function WorkProcessSection({ className }) {
             className="absolute left-7 top-0 bottom-4 w-px -translate-x-1/2 bg-secondary md:left-1/2"
           />
 
-          {steps.map((step, i) => {
+          {workProcessSteps.map((step, i) => {
             const isLeft = i % 2 === 0;
 
             return (
