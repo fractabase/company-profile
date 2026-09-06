@@ -6,36 +6,35 @@ const benefits = [
     icon: Icons.ProblemSolving,
     title: "Problem Solving",
     description:
-      "Kami menerjemahkan tantangan bisnis Anda menjadi solusi digital yang tepat sasaran — bukan sekadar menulis baris kode.",
+      "Kami mulai dari memahami tantangan bisnis Anda, lalu menerjemahkannya jadi solusi digital yang tepat sasaran.",
   },
   {
     icon: Icons.Customization,
     title: "Customization",
-    description:
-      "Setiap software kami bangun mengikuti alur kerja dan kebutuhan spesifik Anda, bukan template umum yang dipaksakan.",
+    description: "Kami bangun setiap software mengikuti alur kerja dan kebutuhan spesifik bisnis Anda.",
   },
   {
     icon: Icons.Efficiency,
     title: "Efficiency",
-    description: "Kami mengurangi proses manual yang rawan kesalahan dan mempercepat operasional harian bisnis Anda.",
+    description:
+      "Kami ganti proses manual yang rawan kesalahan dengan sistem yang mempercepat operasional harian bisnis Anda.",
   },
   {
     icon: Icons.Scalability,
     title: "Scalability",
     description:
-      "Arsitektur dirancang agar sistem dapat tumbuh bersama bisnis Anda, tanpa perlu dibangun ulang dari nol.",
+      "Kami rancang arsitektur sistem agar bisa tumbuh bersama bisnis Anda tanpa perlu dibangun ulang dari nol.",
   },
   {
     icon: Icons.TechnicalExpertise,
     title: "Technical Expertise",
     description:
-      "Tim engineer berpengalaman menangani development end-to-end, sehingga Anda tak perlu membangun tim internal dari awal.",
+      "Tim engineer kami menangani development end-to-end, jadi Anda tidak perlu membangun tim internal dari nol.",
   },
   {
     icon: Icons.LongTermValue,
     title: "Long-Term Value",
-    description:
-      "Kami membangun software yang terus memberi nilai jangka panjang, bukan hanya rampung sesuai tenggat waktu.",
+    description: "Kami bangun software yang terus memberi nilai setelah rilis, bukan cuma rampung tepat waktu.",
   },
 ];
 
@@ -53,8 +52,7 @@ export default function ValuePropositionSection() {
           </h2>
 
           <p className="mb-5 text-lg lg:text-xl text-secondary-color leading-normal max-w-3xl">
-            Kami hadir sebagai mitra teknologi yang memikirkan hasil bisnis Anda — bukan hanya kode yang selesai tepat
-            waktu.
+            Kami mengukur keberhasilan proyek dari hasil bisnis Anda, bukan sekadar kode yang selesai tepat waktu.
           </p>
         </header>
 
