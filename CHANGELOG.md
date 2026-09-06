@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.1](https://github.com/fractabase/company-profile/compare/v0.1.0...v0.1.1) (2026-09-06)
+
+
+### Features
+
+* **contact-section:** enhance form functionality with country code dropdown, validation, and improved user experience ([e6077b8](https://github.com/fractabase/company-profile/commit/e6077b867fc650ee3f0dc243339941aaf620c972))
+* **hero-section:** replace hero illustration with browser and phone mockups with floating badges ([afb3489](https://github.com/fractabase/company-profile/commit/afb3489f65174bfefeff9175ccfecce1a85a304d))
+* **home:** apply styles to WorkProcessSection component ([c894a92](https://github.com/fractabase/company-profile/commit/c894a92f48b6aa989bd29bf69209ef184a662afd))
+* **icons:** add Upload and Plane icons to Icons component ([e115066](https://github.com/fractabase/company-profile/commit/e11506668eafad4010b36bf532f087cbeb9f658a))
+* **styles:** add background image for WorkProcess component ([6790b63](https://github.com/fractabase/company-profile/commit/6790b6331c7b2c194d5b00b50e853ed2fa6025d7))
+* **styles:** add floating animation to section elements ([6eaa04f](https://github.com/fractabase/company-profile/commit/6eaa04fb7c798faa49d84ca943f4923d8838f0bb))
+
+
+### Bug Fixes
+
+* **projects:** improve description clarity for payroll system project ([0ce5aff](https://github.com/fractabase/company-profile/commit/0ce5aff68e2d8514ca375837c1bb12e6b763fa68))
+
 ## [0.1.0](https://github.com/fractabase/company-profile/compare/v0.0.4...v0.1.0) (2026-09-03)
 
 ### [0.0.4](https://github.com/fractabase/company-profile/compare/v0.0.3...v0.0.4) (2026-09-03)
