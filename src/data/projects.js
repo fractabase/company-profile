@@ -58,7 +58,7 @@ export const projects = [
     client: "CV. Berkah Abadi",
     title: "Sistem Payroll & Absensi Karyawan",
     description:
-      "Sistem internal untuk perhitungan gaji otomatis, absensi berbasis lokasi, dan laporan pajak karyawan bulanan.",
+      "Sistem internal untuk perhitungan gaji karyawan secara otomatis, mencatat absensi berbasis lokasi, dan menyusun laporan pajak bulanan.",
     result: "Proses payroll bulanan yang tadinya 2 hari kini selesai dalam hitungan menit.",
     techStack: ["React JS", "Express", "MySQL"],
     ctaLink: "#",
