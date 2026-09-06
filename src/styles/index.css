@@ -32,6 +32,11 @@
   --radius: 14px;
   --maxw: 1180px;
   --ease: cubic-bezier(0.16, 0.8, 0.24, 1);
+
+  /* Typography */
+  --font-heading: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
 /* ===== DARK MODE brand-variant overrides (data-theme="dark") =====
@@ -81,6 +86,11 @@
   --color-line: var(--line);
   --color-line-strong: var(--line-strong);
   --color-glass: var(--surface-glass);
+
+  /* Typography */
+  --font-heading: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
 }
 
 @utility section-container {
@@ -111,6 +121,23 @@ body {
   background-color: var(--background-color);
   color: var(--primary-text-color);
   line-height: 1.6;
+  font-family: var(--font-body);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+}
+
+code,
+pre,
+kbd,
+samp {
+  font-family: var(--font-mono);
 }
 
 section {
