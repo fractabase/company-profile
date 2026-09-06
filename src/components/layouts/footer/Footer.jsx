@@ -1,43 +1,14 @@
 import { Icons } from "../../common/Icons";
 import { ThemeToggle } from "../../../theme/ThemeToggle";
+import { contactInfo, socialLinks } from "../../../data/contactInfo";
 
 /* ---------- Data (dipisah dari JSX, render via .map) ---------- */
 
-const navLinks = [
+const footerNavLinks = [
   { label: "Layanan", href: "#Services" },
   { label: "Portfolio", href: "#Portfolio" },
   { label: "Alur Kerja", href: "#WorkProcess" },
   { label: "Tentang Kami", href: "#About" },
-];
-
-const contactInfo = [
-  {
-    key: "address",
-    icon: Icons.Location,
-    label: "Kota Bekasi, Indonesia",
-  },
-  {
-    key: "phone",
-    icon: Icons.WhatsApp,
-    label: "+62 812-3456-7890",
-    href: "https://wa.me/6281234567890",
-  },
-  {
-    key: "email",
-    icon: Icons.Mail,
-    label: "fractabaseinteractive@gmail.com",
-    href: "mailto:fractabaseinteractive@gmail.com",
-  },
-];
-
-const socialLinks = [
-  { key: "github", label: "Github", icon: Icons.Github, href: "https://github.com/" },
-  { key: "linkedin", label: "LinkedIn", icon: Icons.LinkedIn, href: "https://linkedin.com/" },
-  { key: "whatsapp", label: "WhatsApp", icon: Icons.WhatsApp, href: "https://wa.me/6281234567890" },
-  { key: "email", label: "Email", icon: Icons.Mail, href: "mailto:fractabaseinteractive@gmail.com" },
-];
-
-const policies = [
   { label: "Kebijakan Privasi", href: "#" },
   { label: "Syarat dan Ketentuan", href: "#" },
 ];
@@ -103,7 +74,7 @@ export default function Footer() {
           <div className="">
             <ColumnHeading>Navigasi</ColumnHeading>
             <nav className="flex flex-col gap-3">
-              {navLinks.map((item) => (
+              {footerNavLinks.slice(0, 4).map((item) => (
                 <a
                   key={item.label}
                   href={item.href}
@@ -122,31 +93,34 @@ export default function Footer() {
           <div className="md:-ml-14">
             <ColumnHeading>Kontak</ColumnHeading>
             <ul className="flex flex-col gap-4">
-              {contactInfo.map((item) => {
-                const RowIcon = item.icon;
-                const inner = (
-                  <>
-                    <RowIcon className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-                    <span className="leading-snug text-primary-color/80">{item.label}</span>
-                  </>
-                );
-                return (
-                  <li key={item.key}>
-                    {item.href ? (
-                      <a
-                        href={item.href}
-                        target={item.href.startsWith("http") ? "_blank" : undefined}
-                        rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
-                        className="flex items-start gap-2 md:gap-3 transition-colors duration-200 hover:text-primary-color break-all"
-                      >
-                        {inner}
-                      </a>
-                    ) : (
-                      <span className="flex items-start gap-2 md:gap-3">{inner}</span>
-                    )}
-                  </li>
-                );
-              })}
+              {contactInfo
+                .filter((item) => ["address", "whatsapp", "email"].includes(item.key))
+                .map((item) => {
+                  const RowIcon = item.icon;
+                  const inner = (
+                    <>
+                      <RowIcon className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
+                      <span className="leading-snug text-primary-color/80">{item.value}</span>
+                    </>
+                  );
+
+                  return (
+                    <li key={item.key}>
+                      {item.href ? (
+                        <a
+                          href={item.href}
+                          target={item.href.startsWith("http") ? "_blank" : undefined}
+                          rel={item.href.startsWith("http") ? "noopener noreferrer" : undefined}
+                          className="flex items-start gap-2 md:gap-3 transition-colors duration-200 hover:text-primary-color break-all"
+                        >
+                          {inner}
+                        </a>
+                      ) : (
+                        <span className="flex items-start gap-2 md:gap-3">{inner}</span>
+                      )}
+                    </li>
+                  );
+                })}
             </ul>
           </div>
 
@@ -171,7 +145,7 @@ export default function Footer() {
               <ThemeToggle />
 
               <div className="flex items-center gap-6">
-                {policies.map((item) => (
+                {footerNavLinks.slice(4).map((item) => (
                   <a
                     key={item.label}
                     href={item.href}
