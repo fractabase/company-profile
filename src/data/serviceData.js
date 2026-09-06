@@ -7,7 +7,7 @@ export const serviceData = [
     badgeVariant: "secondary",
     title: "Website Development",
     description:
-      "Company profile, landing page, portfolio, hingga website bisnis dan e-commerce yang dirancang sesuai tujuan dan target pengguna Anda.",
+      "Kami bangun company profile, landing page, portfolio, hingga website e-commerce. Desain dan fitur disesuaikan dengan tujuan bisnis dan target pengguna Anda.",
     features: ["React / Next.js / Laravel", "Desain Responsif & SEO", "Integrasi CMS & Analitik"],
     actionText: "Konsultasi Layanan",
   },
@@ -17,7 +17,7 @@ export const serviceData = [
     badgeVariant: "secondary",
     title: "Web Application",
     description:
-      "Dashboard, sistem informasi, CRM, inventory, hingga sistem administrasi internal berbasis web untuk mendukung proses bisnis Anda.",
+      "Kami bangun dashboard, sistem informasi, CRM, dan sistem administrasi internal berbasis web untuk proses bisnis Anda sehari-hari.",
     features: ["Custom Dashboard & CRM", "Sistem Inventory & POS", "Otomatisasi Alur Kerja"],
     actionText: "Bangun Web App",
   },
@@ -27,7 +27,7 @@ export const serviceData = [
     badgeVariant: "secondary",
     title: "Mobile Application",
     description:
-      "Aplikasi Android, iOS, maupun cross-platform yang kencang, responsif, dan intuitif — dibangun dengan Flutter atau React Native.",
+      "Kami bangun aplikasi Android, iOS, dan cross-platform yang cepat dan intuitif, menggunakan Flutter atau React Native.",
     features: ["Desain UI/UX Modern", "Integrasi Payment Gateway", "Rilis ke Play Store & App Store"],
     actionText: "Buat Aplikasi Mobile",
   },
@@ -37,7 +37,7 @@ export const serviceData = [
     badgeVariant: "secondary",
     title: "Custom Software",
     description:
-      "Software dibangun mengikuti workflow dan kebutuhan spesifik Anda — bukan Anda yang harus menyesuaikan software siap pakai.",
+      "Kami bangun software mengikuti alur kerja dan kebutuhan spesifik bisnis Anda, jadi Anda tidak perlu menyesuaikan diri dengan software siap pakai.",
     features: ["Sesuai Alur Bisnis", "Integrasi Sistem Existing", "Skalabilitas & Maintenance"],
     actionText: "Diskusikan Kebutuhan",
   },
@@ -47,7 +47,7 @@ export const serviceData = [
     badgeVariant: "secondary",
     title: "System Integration & Automation",
     description:
-      "Menghubungkan sistem yang sudah ada dan mengubah proses manual menjadi alur kerja digital yang lebih efisien.",
+      "Kami hubungkan sistem yang sudah Anda pakai dan ubah proses manual jadi alur kerja digital yang lebih efisien.",
     features: ["API & Third-party Integrasi", "Otomatisasi Proses", "Sinkronisasi Data"],
     actionText: "Otomatisasi Sistem",
   },
@@ -57,7 +57,7 @@ export const serviceData = [
     badgeVariant: "secondary",
     title: "IT Talent Augmentation",
     description:
-      "Penyediaan Dedicated Developer (Frontend, Backend, Mobile) yang siap langsung bergabung dengan tim internal Anda.",
+      "Kami sediakan dedicated developer (frontend, backend, mobile) yang siap langsung bergabung dengan tim internal Anda.",
     features: ["Kontrak Fleksibel", "Kerahasiaan Terjamin (NDA)", "Onboarding Cepat"],
     actionText: "Rekrut Tim Dedicated",
   },
