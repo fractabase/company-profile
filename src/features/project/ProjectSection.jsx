@@ -75,7 +75,7 @@ export default function PortfolioSection() {
           </h2>
 
           <p className="mt-3 text-lg lg:text-xl text-secondary-color max-w-2xl mx-auto leading-relaxed">
-            Contoh nyata solusi digital yang kami bangun untuk klien — dari UMKM hingga enterprise.
+            Contoh nyata solusi digital yang kami bangun untuk klien, dari UMKM sampai enterprise
           </p>
         </header>
 
