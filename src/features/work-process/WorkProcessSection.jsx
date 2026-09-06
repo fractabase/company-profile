@@ -5,41 +5,47 @@ const steps = [
     num: "01",
     icon: <Icons.ProblemSolving className="w-5 h-5" />,
     title: "Konsultasi & Kebutuhan (Discovery)",
-    desc: "Diskusi mendalam untuk memahami masalah bisnis, analisis kebutuhan, dan menentukan scope proyek.",
+    desc: "Sebelum menulis satu baris kode, kami pahami dulu masalah bisnis Anda dan susun kebutuhan serta scope proyek bersama-sama.",
   },
   {
     num: "02",
     icon: <Icons.Customization className="w-5 h-5" />,
     title: "Perancangan UI/UX & Arsitektur (Design)",
-    desc: "Pembuatan wireframe, desain antarmuka modern yang ramah pengguna, dan alur arsitektur sistem.",
+    desc: "Wireframe, desain antarmuka yang ramah pengguna, dan arsitektur sistem kami susun di tahap ini, jadi Anda tahu persis seperti apa produknya sebelum masuk development.",
   },
   {
     num: "03",
     icon: <Icons.Code className="w-5 h-5" />,
     title: "Pengembangan & Pengujian (Development & QA)",
-    desc: "Penulisan kode berspesifikasi tinggi diikuti pengujian ketat (quality assurance) untuk memastikan bebas bug.",
+    desc: "Tim kami menulis kode sesuai spesifikasi, kemudian menguji setiap fitur secara ketat sampai bebas bug.",
   },
   {
     num: "04",
     icon: <Icons.Check className="w-5 h-5" />,
     title: "Peluncuran & Pendampingan (Deployment & Support)",
-    desc: "Aplikasi resmi dirilis ke server/store, disertai garansi pasca-peluncuran dan panduan penggunaan.",
+    desc: "Setelah aplikasi rilis ke server atau app store, kami tetap dampingi Anda lewat garansi pasca-peluncuran dan panduan penggunaan.",
+  },
+  {
+    num: "05",
+    icon: <Icons.Growth className="w-5 h-5" />,
+    title: "Pemeliharaan & Pengembangan Lanjutan (Maintenance & Improvement)",
+    desc: "Produk yang sudah rilis tetap kami pantau dan kembangkan sesuai kebutuhan bisnis Anda yang terus berubah.",
   },
 ];
 
-export default function WorkProcessSection() {
+export default function WorkProcessSection({ className }) {
   return (
-    <section id="WorkProcess">
+    <section id="WorkProcess" className={className}>
       <div className="section-container my-12 lg:my-20">
         <header className="text-center mb-8 md:mb-12 pb-5 border-b border-line-strong">
           <span className="text-sm font-medium uppercase tracking-widest text-secondary">-/ How We Work</span>
 
           <h2 className="mt-3 text-2xl md:text-4xl lg:text-5xl font-bold text-primary-color">
-            4 Langkah Mudah Memulai Proyek Bersama Kami
+            5 Langkah Kami Bekerja, dari Ide sampai Produk yang Terus Berkembang
           </h2>
 
           <p className="mt-3 text-lg lg:text-xl text-secondary-color max-w-xl mx-auto leading-relaxed">
-            Alur kerja terstruktur dari awal ide hingga produk matang — transparan, terukur, dan aman untuk bisnis Anda.
+            Setiap tahap kami rancang supaya prosesnya transparan dan terukur, dari ide awal sampai produk siap dipakai.
           </p>
         </header>
 
@@ -59,7 +65,7 @@ export default function WorkProcessSection() {
               >
                 <div
                   aria-hidden="true"
-                  className="absolute left-7 top-4 z-10 flex h-12 w-12 -translate-x-1/2 items-center justify-center rounded-full bg-secondary text-dark font-mono font-bold shadow-sm ring-4 ring-background dark:ring-dark-surface transition-transform duration-300 group-hover:scale-105 md:left-1/2 md:top-1/2 md:-translate-y-1/2"
+                  className="absolute left-7 top-1/2 z-10 flex h-12 w-12 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full bg-secondary text-dark font-mono font-bold shadow-sm ring-4 ring-background dark:ring-dark-surface transition-transform duration-300 group-hover:scale-105 md:left-1/2"
                 >
                   {step.num}
                 </div>
