@@ -13,7 +13,7 @@ export default function Home() {
         <HeroSection className={styles.Home} />
         <ServicesSection />
         <ValuePropositionSection />
-        <WorkProcessSection />
+        <WorkProcessSection className={styles.WorkProcess} />
         <ProjectSection />
         <ContactSection />
       </main>
