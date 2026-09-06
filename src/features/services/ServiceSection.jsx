@@ -9,12 +9,12 @@ export default function ServicesSection() {
         <div className="section-container my-12 lg:my-20">
           <header className="mb-8 lg:mb-14 border-b border-line-strong">
             <h2 className="mb-4 text-2xl md:text-4xl lg:text-5xl text-primary-color font-bold lg:w-1/2">
-              Layanan Digital End-to-End untuk Mendukung Pertumbuhan Bisnis Anda
+              Layanan Digital End-to-End, dari Konsep sampai Sistem yang Berjalan
             </h2>
 
             <p className="mb-5 text-lg lg:text-xl text-secondary-color lg:w-2/3">
-              Dari konsep awal hingga pemeliharaan sistem, kami menyediakan solusi teknologi terintegrasi yang fleksibel
-              sesuai kebutuhan Anda.
+              Kami menangani seluruh proses pengembangan, mulai dari diskusi kebutuhan awal sampai maintenance setelah
+              sistem rilis.
             </p>
           </header>
 
