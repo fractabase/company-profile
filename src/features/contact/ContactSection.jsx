@@ -1,8 +1,9 @@
-import { useState, useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Card, CardContent } from "../../components/common/Card";
 import { Icons } from "../../components/common/Icons";
 import { PROJECT_TYPES, BUDGET_RANGES, TIME_TARGETS, COUNTRY_CODES } from "../../data/contactFormData";
 import { contactInfo } from "../../data/contactInfo";
+import { useContactForm } from "../../hooks/useContactForm";
 
 function CountryCodeDropdown({ value, onChange, codes }) {
   const [open, setOpen] = useState(false);
@@ -93,14 +94,6 @@ function CountryCodeDropdown({ value, onChange, codes }) {
   );
 }
 
-const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-
-const formatPhoneNumber = (digits) => {
-  if (digits.length <= 3) return digits;
-  if (digits.length <= 7) return `${digits.slice(0, 3)}-${digits.slice(3)}`;
-  return `${digits.slice(0, 3)}-${digits.slice(3, 7)}-${digits.slice(7)}`;
-};
-
 const inputBase =
   "w-full mt-1 md:mt-2 px-4 py-2.5 rounded border bg-surface text-primary-color placeholder:text-secondary-color/60 focus:outline-none focus:ring-2 focus:ring-secondary/40 transition";
 
@@ -118,198 +111,26 @@ const labelClass = "font-semibold text-primary-color";
 const errorTextClass = "mt-1 text-xs text-red-500";
 
 export default function ContactSection() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    company: "",
-    projectTypes: ["Web Application"],
-    budgetRange: "",
-    timeTarget: "",
-    message: "",
-  });
-
-  const [phoneState, setPhoneState] = useState({
-    countryCode: "62",
-    raw: "",
-    display: "",
-  });
-
-  const [optionalOpen, setOptionalOpen] = useState(false);
-
-  const [touched, setTouched] = useState({
-    name: false,
-    email: false,
-    phone: false,
-    projectTypes: false,
-    message: false,
-  });
-
-  const [submitAttempted, setSubmitAttempted] = useState(false);
-  const [submitted, setSubmitted] = useState(false);
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState(null);
-
-  const fieldIds = {
-    name: "contact-name",
-    email: "contact-email",
-    phone: "contact-phone",
-    company: "contact-company",
-    projectTypes: "contact-project-types",
-    budgetRange: "contact-budget",
-    timeTarget: "contact-time",
-    message: "contact-message",
-  };
-
-  const handleChange = (field, value) => {
-    setFormData((prev) => ({ ...prev, [field]: value }));
-  };
-
-  const handlePhoneInputChange = (inputValue) => {
-    const rawDigits = inputValue.replace(/\D/g, "");
-    const limitedDigits = rawDigits.slice(0, 13);
-    const display = formatPhoneNumber(limitedDigits);
-    const fullNumber = phoneState.countryCode + limitedDigits;
-
-    setPhoneState({
-      countryCode: phoneState.countryCode,
-      raw: limitedDigits,
-      display: display,
-    });
-
-    setFormData((prev) => ({ ...prev, phone: fullNumber }));
-  };
-
-  const handleCountryCodeChange = (newCode) => {
-    const fullNumber = newCode + phoneState.raw;
-    setPhoneState({
-      countryCode: newCode,
-      raw: phoneState.raw,
-      display: phoneState.display,
-    });
-    setFormData((prev) => ({ ...prev, phone: fullNumber }));
-  };
-
-  const handleBlur = (field) => {
-    setTouched((prev) => ({ ...prev, [field]: true }));
-  };
-
-  const toggleProjectType = (type) => {
-    setFormData((prev) => {
-      const current = prev.projectTypes;
-      const updated = current.includes(type) ? current.filter((t) => t !== type) : [...current, type];
-      return { ...prev, projectTypes: updated.length > 0 ? updated : ["Web Application"] };
-    });
-  };
-
-  const getErrors = () => {
-    const errors = {};
-
-    if (!formData.name.trim()) {
-      errors.name = "Nama Lengkap wajib diisi.";
-    }
-
-    if (!formData.email.trim()) {
-      errors.email = "Email wajib diisi.";
-    } else if (!EMAIL_REGEX.test(formData.email.trim())) {
-      errors.email = "Format email tidak valid, contoh: nama@email.com";
-    }
-
-    if (!phoneState.raw) {
-      errors.phone = "Nomor WhatsApp/Telepon wajib diisi.";
-    } else if (phoneState.raw.length < 8 || phoneState.raw.length > 13) {
-      errors.phone = "Nomor tidak valid, masukkan 8-13 digit angka.";
-    }
-
-    if (formData.projectTypes.length === 0) {
-      errors.projectTypes = "Pilih minimal satu jenis proyek.";
-    }
-
-    if (!formData.message.trim()) {
-      errors.message = "Pesan wajib diisi.";
-    }
-
-    return errors;
-  };
-
-  const errors = getErrors();
-  const hasErrors = Object.keys(errors).length > 0;
-
-  const shouldShowError = (field) => {
-    return submitAttempted || touched[field];
-  };
-
-  const scrollToFirstError = () => {
-    const fieldOrder = ["name", "email", "phone", "projectTypes", "message"];
-    for (const field of fieldOrder) {
-      if (errors[field]) {
-        const element = document.getElementById(fieldIds[field]);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "center" });
-          element.focus();
-          break;
-        }
-      }
-    }
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    setSubmitAttempted(true);
-    setTouched({
-      name: true,
-      email: true,
-      phone: true,
-      projectTypes: true,
-      message: true,
-    });
-
-    if (hasErrors) {
-      scrollToFirstError();
-      return;
-    }
-
-    setIsSubmitting(true);
-    setSubmitStatus(null);
-
-    try {
-      // TODO: Integrate with email sending service (EmailJS/Formspree/custom backend)
-      console.log("Form submitted:", formData);
-
-      // Simulated success - replace with actual email sending
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-
-      setSubmitStatus("success");
-      setSubmitted(true);
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        company: "",
-        projectTypes: ["Web Application"],
-        budgetRange: "",
-        timeTarget: "",
-        message: "",
-      });
-      setPhoneState({
-        countryCode: "62",
-        raw: "",
-        display: "",
-      });
-      setTouched({
-        name: false,
-        email: false,
-        phone: false,
-        projectTypes: false,
-        message: false,
-      });
-      setSubmitAttempted(false);
-    } catch {
-      setSubmitStatus("error");
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
+  const {
+    formData,
+    phoneState,
+    optionalOpen,
+    setOptionalOpen,
+    setSubmitStatus,
+    errors,
+    submitted,
+    isSubmitting,
+    submitStatus,
+    fieldIds,
+    handleChange,
+    handlePhoneInputChange,
+    handleCountryCodeChange,
+    handleBlur,
+    toggleProjectType,
+    shouldShowError,
+    handleSubmit,
+    resetForm,
+  } = useContactForm();
 
   return (
     <>
@@ -371,19 +192,7 @@ export default function ContactSection() {
 
                   <button
                     type="button"
-                    onClick={() => {
-                      setSubmitted(false);
-                      setSubmitStatus(null);
-                      setTouched({
-                        name: false,
-                        email: false,
-                        phone: false,
-                        projectTypes: false,
-                        message: false,
-                      });
-                      setSubmitAttempted(false);
-                      setOptionalOpen(false);
-                    }}
+                    onClick={resetForm}
                     className="mt-2 px-6 py-2.5 rounded-xl bg-primary/10 text-primary text-sm font-bold hover:bg-primary/20 transition"
                   >
                     Kirim Pesan Lain
