@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.2](https://github.com/fractabase/company-profile/compare/v0.1.1...v0.1.2) (2026-09-06)
+
+
+### Features
+
+* **benefits:** add benefits data structure with descriptions and icons ([e254858](https://github.com/fractabase/company-profile/commit/e2548587ca0ae02432b1df0482818c416fbbe1b9))
+* **compliance:** add compliance data structure with legal and project management details ([d155d65](https://github.com/fractabase/company-profile/commit/d155d65563114a2926eaee839b57bee36001eee0))
+* **contact-form-data:** add initial data structures for project types, budget ranges, time targets, and country codes ([885baaa](https://github.com/fractabase/company-profile/commit/885baaa132cde03c7038e37f8b1d41006c33525f))
+* **contact-info:** add contact information and social links data structure ([e44aca6](https://github.com/fractabase/company-profile/commit/e44aca699c6271bd17542d1615c9e3c2f961b6e2))
+* **work-process-steps:** add work process steps data structure ([5ba6b99](https://github.com/fractabase/company-profile/commit/5ba6b998658d4400a6ee6ca81af2e28c87aa284f))
+
 ### [0.1.1](https://github.com/fractabase/company-profile/compare/v0.1.0...v0.1.1) (2026-09-06)
 
 
