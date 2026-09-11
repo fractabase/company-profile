@@ -1,9 +1,9 @@
-import ContactSection from "../../features/contact/ContactSection";
-import HeroSection from "../../features/hero/HeroSection";
-import ProjectSection from "../../features/project/ProjectSection";
-import ServicesSection from "../../features/services/ServiceSection";
-import ValuePropositionSection from "../../features/value-proposition/ValuePropositionSection";
-import WorkProcessSection from "../../features/work-process/WorkProcessSection";
+import ContactSection from "../../features/home/ContactSection";
+import HeroSection from "../../features/home/HeroSection";
+import ProjectSection from "../../features/home/ProjectSection";
+import ServicesSection from "../../features/home/ServiceSection";
+import ValuePropositionSection from "../../features/home/ValuePropositionSection";
+import WorkProcessSection from "../../features/home/WorkProcessSection";
 import styles from "./Home.module.css";
 
 export default function Home() {
