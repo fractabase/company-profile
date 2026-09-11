@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
 import { ThemeToggle } from "../../../theme/ThemeToggle";
 import { Icons } from "../../common/Icons";
+import { NavigationLink } from "./NavigationLink";
 
 const NAV_LINKS = [
-  { href: "/#Home", label: "Home" },
-  { href: "/#Services", label: "Services" },
-  { href: "/#ValueProposition", label: "Why" },
-  { href: "/#WorkProcess", label: "Process" },
-  { href: "/#Portfolio", label: "Portfolio" },
+  { href: "/services", label: "Layanan", isRoute: true },
+  { href: "/#ValueProposition", label: "Proposisi Nilai", isRoute: false },
+  { href: "/#WorkProcess", label: "Alur Kerja", isRoute: false },
+  { href: "/#Portfolio", label: "Portfolio", isRoute: false },
+  { href: "/about-us", label: "Tentang Kami", isRoute: true },
+  { href: "/compliance", label: "Compliance", isRoute: true },
 ];
 
 export default function Navbar() {
@@ -38,6 +40,7 @@ export default function Navbar() {
 
   return (
     <header className="fixed top-0 left-0 w-full bg-surface/90 dark:bg-dark-surface/90 backdrop-blur border-b border-line z-30">
+      {/* Desktop navigation */}
       <div className="section-container flex items-center justify-between py-3 md:py-4">
         {/* Logo */}
         <a href="/" className="text-xl md:text-2xl font-bold shrink-0">
@@ -47,14 +50,8 @@ export default function Navbar() {
 
         {/* Desktop navigation */}
         <nav className="hidden lg:flex items-center gap-4 lg:gap-6">
-          {NAV_LINKS.map(({ href, label }) => (
-            <a
-              key={href}
-              href={href}
-              className="relative text-primary-color hover:text-primary transition-colors after:absolute after:bottom-0 after:left-0 after:h-0.5 after:w-full after:origin-right after:scale-x-0 after:bg-primary after:transition-transform after:duration-200 hover:after:scale-x-100 hover:after:origin-left"
-            >
-              {label}
-            </a>
+          {NAV_LINKS.map(({ href, label, isRoute }) => (
+            <NavigationLink key={href} href={href} label={label} isRoute={isRoute} device="desktop" />
           ))}
         </nav>
 
@@ -71,7 +68,7 @@ export default function Navbar() {
             Contact
           </a>
 
-          {/* Hamburger button — radial arc to X */}
+          {/* Hamburger button */}
           <button
             type="button"
             onClick={() => setMenuOpen((o) => !o)}
@@ -88,32 +85,30 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile dropdown menu — vertical list, staggered slide-down + fade */}
+      {/* Mobile dropdown menu */}
       <div
-        className={`lg:hidden absolute top-full left-0 w-full bg-surface dark:bg-dark-surface border-b border-line shadow-lg shadow-dark/5 overflow-hidden transition-all duration-500 ease-(--ease) ${
-          menuOpen ? "max-h-150 opacity-100" : "max-h-0 opacity-0"
-        }`}
+        className={`lg:hidden absolute top-full left-0 w-full bg-surface dark:bg-dark-surface border-b border-line shadow-lg shadow-dark/5 overflow-hidden transition-all duration-500 ease-(--ease) ${menuOpen ? "max-h-150 opacity-100" : "max-h-0 opacity-0"}`}
       >
         <nav className="section-container py-4 flex flex-col gap-1">
-          {NAV_LINKS.map(({ href, label }, i) => {
-            // Stagger: top-to-bottom on open, bottom-to-top on close
+          {NAV_LINKS.map(({ href, label, isRoute }, i) => {
             const delay = menuOpen ? i * 60 : (NAV_LINKS.length - 1 - i) * 40;
+
             return (
-              <a
-                key={href}
-                href={href}
-                onClick={closeMenu}
-                className="py-3 px-4 text-primary-color hover:text-primary hover:bg-primary/5 rounded-lg transition-all duration-300 ease-(--ease)"
-                style={{
-                  transitionDelay: `${delay}ms`,
-                  transform: menuOpen ? "translateY(0)" : "translateY(-16px)",
-                  opacity: menuOpen ? 1 : 0,
-                }}
-              >
-                {label}
-              </a>
+              <>
+                <NavigationLink
+                  key={href}
+                  href={href}
+                  label={label}
+                  isRoute={isRoute}
+                  onClick={closeMenu}
+                  device="mobile"
+                  delay={delay}
+                  menuOpen={menuOpen}
+                />
+              </>
             );
           })}
+
           {/* Mobile CTA */}
           <a
             href="/#Contact"
