@@ -157,6 +157,15 @@ export const Icons = {
       />
     </IconWrapper>
   ),
+  ShieldCheck: (props) => (
+    <IconWrapper strokeWidth={1.75} {...props}>
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M9 12.75 11.25 15 15 9.75m-3-7.036A11.959 11.959 0 0 1 3.598 6 11.99 11.99 0 0 0 3 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285Z"
+      />
+    </IconWrapper>
+  ),
   Mail: ({ className = "w-10 h-10" }) => (
     <svg className={className} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 640" fill="currentColor">
       <path d="M125.4 128C91.5 128 64 155.5 64 189.4C64 190.3 64 191.1 64.1 192L64 192L64 448C64 483.3 92.7 512 128 512L512 512C547.3 512 576 483.3 576 448L576 192L575.9 192C575.9 191.1 576 190.3 576 189.4C576 155.5 548.5 128 514.6 128L125.4 128zM528 256.3L528 448C528 456.8 520.8 464 512 464L128 464C119.2 464 112 456.8 112 448L112 256.3L266.8 373.7C298.2 397.6 341.7 397.6 373.2 373.7L528 256.3zM112 189.4C112 182 118 176 125.4 176L514.6 176C522 176 528 182 528 189.4C528 193.6 526 197.6 522.7 200.1L344.2 335.5C329.9 346.3 310.1 346.3 295.8 335.5L117.3 200.1C114 197.6 112 193.6 112 189.4z" />
@@ -229,7 +238,7 @@ export const Icons = {
   ),
   Time: (props) => (
     <IconWrapper strokeWidth={2} {...props}>
-      <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
     </IconWrapper>
   ),
   Upload: (props) => (
@@ -248,6 +257,55 @@ export const Icons = {
         strokeLinejoin="round"
         d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5"
       />
+    </IconWrapper>
+  ),
+  ArrowUp: (props) => (
+    <IconWrapper strokeWidth={2} {...props}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 19V5m0 0l-7 7m7-7l7 7" />
+    </IconWrapper>
+  ),
+  Scale: (props) => (
+    <IconWrapper strokeWidth={1.75} {...props}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v18m0-18l-8 5 4 6a4 4 0 0 0 8 0l4-6-8-5ZM4 8h16" />
+    </IconWrapper>
+  ),
+  FileText: (props) => (
+    <IconWrapper strokeWidth={1.75} {...props}>
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        d="M9 12h6m-6 4h6m2 5H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5.586a1 1 0 0 1 .707.293l5.414 5.414a1 1 0 0 1 .293.707V19a2 2 0 0 1-2 2Z"
+      />
+    </IconWrapper>
+  ),
+  Database: (props) => (
+    <IconWrapper strokeWidth={1.75} {...props}>
+      <ellipse cx="12" cy="5" rx="9" ry="3" />
+      <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3" />
+      <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5" />
+    </IconWrapper>
+  ),
+  Cookie: (props) => (
+    <IconWrapper strokeWidth={1.75} {...props}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5" />
+      <circle cx="8.5" cy="8.5" r="0.75" fill="currentColor" />
+      <circle cx="10.5" cy="14.5" r="0.75" fill="currentColor" />
+      <circle cx="15.5" cy="15.5" r="0.75" fill="currentColor" />
+      <circle cx="7.5" cy="13.5" r="0.75" fill="currentColor" />
+      <circle cx="14.5" cy="10.5" r="0.75" fill="currentColor" />
+    </IconWrapper>
+  ),
+  AlertCircle: (props) => (
+    <IconWrapper strokeWidth={1.75} {...props}>
+      <circle cx="12" cy="12" r="9" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M12 8v4m0 4h.01" />
+    </IconWrapper>
+  ),
+  UserCheck: (props) => (
+    <IconWrapper strokeWidth={1.75} {...props}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+      <circle cx="9" cy="7" r="4" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="m16 11 2 2 4-4" />
     </IconWrapper>
   ),
 };
