@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.3](https://github.com/fractabase/company-profile/compare/v0.1.2...v0.1.3) (2026-09-11)
+
+
+### Features
+
+* **dependencies:** add GSAP library for animations ([7346f0f](https://github.com/fractabase/company-profile/commit/7346f0f76e9790ccc4763196d1b58bb09185e405))
+* **heading:** add Heading component with customizable alignment, tagline, and styling ([03079c1](https://github.com/fractabase/company-profile/commit/03079c1046947a9cacc0dfaee9c7b4d613f170d9))
+* **icons:** add reusable ShieldCheck, ArrowUp, Scale, FileText, Database, Cookie, AlertCircle, and UserCheck icon components ([a80b548](https://github.com/fractabase/company-profile/commit/a80b548a0d74be1221d72186190dd7466fc4691f))
+
 ### [0.1.2](https://github.com/fractabase/company-profile/compare/v0.1.1...v0.1.2) (2026-09-06)
 
 
