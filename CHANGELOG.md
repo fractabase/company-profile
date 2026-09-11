@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.4](https://github.com/fractabase/company-profile/compare/v0.1.3...v0.1.4) (2026-09-11)
+
+
+### Documentation
+
+* **STRUCTURE-PROJECT.md:** add project structure documentation ([5f3c0a6](https://github.com/fractabase/company-profile/commit/5f3c0a637dbe64eb6b0ccdd36e635bc6acd91a06))
+
 ### [0.1.3](https://github.com/fractabase/company-profile/compare/v0.1.2...v0.1.3) (2026-09-11)
 
 
