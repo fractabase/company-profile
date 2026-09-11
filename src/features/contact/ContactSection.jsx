@@ -4,8 +4,9 @@ import { Icons } from "../../components/common/Icons";
 import { PROJECT_TYPES, BUDGET_RANGES, TIME_TARGETS, COUNTRY_CODES } from "../../data/contactFormData";
 import { contactInfo } from "../../data/contactInfo";
 import { useContactForm } from "../../hooks/useContactForm";
+import { Heading } from "../../components/common/Heading";
 
-function CountryCodeDropdown({ value, onChange, codes }) {
+const CountryCodeDropdown = ({ value, onChange, codes }) => {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const ref = useRef(null);
@@ -92,7 +93,7 @@ function CountryCodeDropdown({ value, onChange, codes }) {
       )}
     </div>
   );
-}
+};
 
 const inputBase =
   "w-full mt-1 md:mt-2 px-4 py-2.5 rounded border bg-surface text-primary-color placeholder:text-secondary-color/60 focus:outline-none focus:ring-2 focus:ring-secondary/40 transition";
@@ -105,6 +106,40 @@ const selectBase =
   "w-full mt-1 md:mt-2 px-4 py-2.5 rounded border bg-surface text-primary-color focus:outline-none focus:ring-2 focus:ring-secondary/40 transition appearance-none bg-no-repeat bg-[right_1rem_center] bg-[length:1rem] cursor-pointer bg-[image:var(--select-chevron)]";
 
 const selectNormal = `${selectBase} border-primary focus:border-secondary`;
+
+const SubmitButton = ({ isSubmitting, children }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  return (
+    <button
+      type="submit"
+      disabled={isSubmitting}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className={`w-full py-3.5 px-6 rounded-xl text-sm font-bold transition shadow-lg flex items-center justify-center gap-2 relative ${
+        isSubmitting
+          ? "bg-primary/60 text-dark/70 cursor-wait"
+          : "bg-primary hover:bg-primary-soft text-dark shadow-primary/20"
+      }`}
+    >
+      {isSubmitting ? (
+        <>
+          <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
+            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+          </svg>
+          <span>Mengirim...</span>
+        </>
+      ) : (
+        <>
+          <span>{children}</span>
+          <Icons.Plane
+            className={`w-4 h-4 transition-transform duration-200 ease-(--ease) ${isHovered ? "translate-x-2" : ""}`}
+          />
+        </>
+      )}
+    </button>
+  );
+};
 
 const labelClass = "font-semibold text-primary-color";
 
@@ -136,21 +171,16 @@ export default function ContactSection() {
     <>
       <section id="Contact">
         <div className="section-container my-12 lg:my-20 ">
-          <div className="space-y-4 pb-7 mb-12 border-b border-line-strong">
-            <span className="font-mono text-sm uppercase tracking-wider text-secondary">
-              -/ Konsultasi dan Berdiskusi
-            </span>
-
-            <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold leading-tight text-primary-color">
-              Mulai Proyek Anda Bersama Kami
-            </h2>
-
-            <p className="leading-relaxed text-secondary-color text-lg lg:text-xl max-w-2xl">
-              Punya rencana pengembangan website, aplikasi mobile, atau butuh tambahan developer? Berikan gambaran
+          <Heading
+            hasTagline={true}
+            taglineText="-/ Konsultasi dan Berdiskusi"
+            titleClass="mt-3"
+            title="Mulai Proyek Anda Bersama Kami"
+            paragraphClass="leading-relaxed max-w-3xl"
+            paragraph="Punya rencana pengembangan website, aplikasi mobile, atau butuh tambahan developer? Berikan gambaran
               singkat mengenai sistem yang ingin dibangun atau kriteria talenta IT yang dicari, dan tim kami akan segera
-              menghubungi Anda untuk mengatur sesi konsultasi.
-            </p>
-          </div>
+              menghubungi Anda untuk mengatur sesi konsultasi."
+          />
 
           <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1fr] gap-10 lg:gap-16 items-start">
             {/* Left: value proposition + contact info */}
@@ -167,6 +197,7 @@ export default function ContactSection() {
                       <h3 className="text-xs font-semibold text-secondary-color uppercase tracking-wide">
                         {item.label}
                       </h3>
+
                       <p className="font-semibold text-primary-color mt-0.5 break-all">{item.value}</p>
                       <p className="text-xs text-secondary-color mt-0.5">{item.note}</p>
                     </div>
@@ -176,7 +207,7 @@ export default function ContactSection() {
             </div>
 
             {/* Right: contact form */}
-            <Card variant="glass" hoverable={false} className="bg-transparent border-0 shadow-none!">
+            <Card variant="ghost" hoverable={false} className="bg-transparent">
               {submitted ? (
                 <CardContent className="py-12 text-center space-y-4">
                   <div className="w-16 h-16 bg-primary/15 text-primary rounded-full flex items-center justify-center mx-auto">
@@ -448,41 +479,7 @@ export default function ContactSection() {
                     </div>
 
                     {/* Row 7: Submit button */}
-                    <button
-                      type="submit"
-                      disabled={isSubmitting}
-                      className={`w-full py-3.5 px-6 rounded-xl text-sm font-bold transition shadow-lg flex items-center justify-center gap-2 group ${
-                        isSubmitting
-                          ? "bg-primary/60 text-dark/70 cursor-wait"
-                          : "bg-primary hover:bg-primary-soft text-dark shadow-primary/20"
-                      }`}
-                    >
-                      {isSubmitting ? (
-                        <>
-                          <svg className="animate-spin w-4 h-4" viewBox="0 0 24 24" fill="none">
-                            <circle
-                              className="opacity-25"
-                              cx="12"
-                              cy="12"
-                              r="10"
-                              stroke="currentColor"
-                              strokeWidth="4"
-                            />
-                            <path
-                              className="opacity-75"
-                              fill="currentColor"
-                              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
-                            />
-                          </svg>
-                          <span>Mengirim...</span>
-                        </>
-                      ) : (
-                        <>
-                          <span>Kirimkan Permintaan dan Dapatkan Estimasi</span>
-                          <Icons.Plane className="w-4 h-4 group-hover:translate-x-2 transition-transform duration-200 ease-(--ease)" />
-                        </>
-                      )}
-                    </button>
+                    <SubmitButton isSubmitting={isSubmitting}>Kirimkan Permintaan dan Dapatkan Estimasi</SubmitButton>
                   </form>
                 </CardContent>
               )}
