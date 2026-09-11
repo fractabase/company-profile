@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { Icons } from "../../common/Icons";
 import { ThemeToggle } from "../../../theme/ThemeToggle";
 import { contactInfo, socialLinks } from "../../../data/contactInfo";
+import { FooterLink } from "./FooterLink";
 
 /* ---------- Data (dipisah dari JSX, render via .map) ---------- */
 
@@ -20,21 +21,6 @@ const footerYear = new Date().getFullYear();
 
 const ColumnHeading = ({ children }) => {
   return <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.18em] text-primary-color/70">{children}</h3>;
-};
-
-const FooterLink = ({ href, children, isRoute }) => {
-  const linkClass =
-    "group inline-flex relative w-fit items-center text-primary-color/80 transition-colors duration-200 hover:text-primary after:absolute after:bottom-0 after:left-0 after:h-px after:bg-primary after:w-full after:transition-transform after:origin-left after:scale-x-0 hover:after:scale-x-100";
-
-  return isRoute ? (
-    <Link to={href} className={linkClass}>
-      {children}
-    </Link>
-  ) : (
-    <a href={href} className={linkClass}>
-      {children}
-    </a>
-  );
 };
 
 /* ---------- Footer utama (light mode, primary dominan, kontras tinggi) ---------- */
