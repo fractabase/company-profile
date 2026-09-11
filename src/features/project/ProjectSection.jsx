@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Icons } from "../../components/common/Icons";
 import { projects, categoryLabels } from "../../data/projects";
+import { Heading } from "../../components/common/Heading";
 
 // Bold otomatis pada angka / persentase di dalam teks hasil
 function renderHighlight(text) {
@@ -67,22 +68,20 @@ export default function PortfolioSection() {
   return (
     <section id="Portfolio">
       <div className="section-container my-12 lg:my-20">
-        <header className="text-center mb-8 lg:mb-14 pb-5 border-b border-line-strong">
-          <span className="font-mono text-sm uppercase tracking-wider text-secondary">-/ Selected Works</span>
-
-          <h2 className="mt-3 text-2xl md:text-4xl lg:text-5xl font-bold text-primary-color">
-            Hasil Karya & Case Study Terpilih
-          </h2>
-
-          <p className="mt-3 text-lg lg:text-xl text-secondary-color max-w-2xl mx-auto leading-relaxed">
-            Contoh nyata solusi digital yang kami bangun untuk klien, dari UMKM sampai enterprise
-          </p>
-        </header>
+        <Heading
+          align="center"
+          hasTagline={true}
+          taglineText="-/ Selected Works"
+          titleClass="mt-3"
+          title="Hasil Karya & Case Study Terpilih"
+          paragraphClass="max-w-2xl mx-auto leading-relaxed!"
+          paragraph="Contoh nyata solusi digital yang kami bangun untuk klien, dari UMKM sampai enterprise"
+        />
 
         <div
           role="tablist"
           aria-label="Filter kategori project"
-          className="flex gap-2 overflow-x-auto pb-2 lg:mb-10 md:justify-center flex-wrap md:overflow-visible"
+          className="flex gap-2 overflow-x-auto p-3 lg:mb-10 md:justify-center flex-wrap md:overflow-visible bg-background sticky top-17 z-10"
         >
           {filters.map((cat) => {
             const active = cat === activeFilter;
