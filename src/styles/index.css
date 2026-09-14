@@ -1,0 +1,155 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+:root {
+  /* 60% | Primary/dominant: cyan-tinted dark surfaces */
+  --primary-color: #35beeb;
+  --primary-soft-color: #77ddff; /* primary | CTA utama, link, button, active state, icon penting, elemen brand, highlight tertentu */
+  --background-color: #f8fafc; /* light background | background utama, section, whitespace, card area tertentu. */
+  --dark-background-color: #071619;
+  --surface-color: #fff; /* surface | card, navigation, content surface, form, floating element. */
+  --dark-surface-color: #0d2226;
+  --dark-surface-alt-color: #12292e;
+  --primary-text-color: #172c5c; /* text | heading, body text utama, navigation, informasi penting. */
+  --secondary-text-color: #475569; /* secondary text | description, supporting text, metadata, caption. */
+  --dark-text-color: #e9f7f5;
+  --dark-text-mute-color: #8fb0ad;
+  --dark-text-faint-color: #587472;
+  --line: rgba(42, 58, 56, 0.16);
+  --line-strong: rgba(27, 37, 36, 0.32);
+
+  /* 30% | Secondary */
+  --secondary-color: #7b61ff;
+  --secondary-soft-color: #a596ff;
+  --dark-secondary-color: #172554; /* dark brand | hero section, footer, dark section, navbar tertentu, heading di area tertentu, background brand */
+
+  /* 10% | Tertiary accent */
+  --tertiary-color: #f5a623; /* 10% | Tertiary AMBER — highlight hasil/pencapaian, badge "Hasil Nyata", checkmark penting, angka statistik. */
+  --tertiary-ink: #241a12;
+  --surface-glass: rgba(13, 34, 38, 0.88);
+  --grad: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+  --radius: 14px;
+  --maxw: 1180px;
+  --ease: cubic-bezier(0.16, 0.8, 0.24, 1);
+
+  /* Typography */
+  --font-heading: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+/* ===== DARK MODE brand-variant overrides (data-theme="dark") =====
+   Kept CLOSE to the light brand hues; only lightness nudged for contrast on a dark canvas.
+   Overriding the :root source variables cascades into the @theme aliases (--color-*) and every
+   utility that references them, so the `dark:` toggle restyles brand colors automatically. */
+[data-theme="dark"] {
+  --background-color: #0b1f24; /* base canvas (was #f8fafc) */
+  --surface-color: #102a30; /* cards/nav (was #fff) */
+  --primary-text-color: #eaf7f5; /* headings/ink (was #172c5c) */
+  --secondary-text-color: #9fb6b3; /* muted desc (was #475569) */
+  --primary-color: #4dc8f0; /* primary, lightness up for dark bg */
+  --primary-soft-color: #6fd6f5;
+  --secondary-color: #9683ff; /* secondary, lightness up for dark bg */
+  --secondary-soft-color: #a596ff;
+  --tertiary-color: #f7b53d; /* tertiary amber, slightly brighter on dark */
+  --tertiary-ink: #2a1c00;
+  --line: rgba(125, 200, 210, 0.18);
+  --line-strong: rgba(125, 200, 210, 0.32);
+}
+
+@theme {
+  /* Primary (cyan) — 60% dominant */
+  --color-primary: var(--primary-color);
+  --color-primary-soft: var(--primary-soft-color);
+  /* --color-accent removed together with --accent-color. */
+  /* Text ink */
+  --color-primary-color: var(--primary-text-color);
+  --color-secondary-color: var(--secondary-text-color);
+  /* Surfaces — 60% base */
+  --color-background: var(--background-color);
+  --color-surface: var(--surface-color);
+  --color-dark: var(--dark-background-color);
+  --color-dark-surface: var(--dark-surface-color);
+  --color-dark-surface-alt: var(--dark-surface-alt-color);
+  --color-dark-secondary: var(--dark-secondary-color);
+  --color-dark-text: var(--dark-text-color);
+  --color-dark-text-mute: var(--dark-text-mute-color);
+  --color-dark-text-faint: var(--dark-text-faint-color);
+  /* Secondary (violet) — 30% */
+  --color-secondary: var(--secondary-color);
+  --color-secondary-soft: var(--secondary-soft-color);
+  /* Tertiary (peach) — 10% accent */
+  --color-tertiary: var(--tertiary-color);
+  --color-tertiary-ink: var(--tertiary-ink);
+  /* Lines & glass */
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-glass: var(--surface-glass);
+
+  /* Typography */
+  --font-heading: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+}
+
+@utility section-container {
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  max-width: 80rem;
+}
+
+@media (width < 40rem) {
+  .section-container {
+    padding-inline: calc(0.25rem * 3);
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 4rem;
+}
+
+::selection {
+  background-color: var(--secondary-color);
+  color: var(--dark-text-color);
+}
+
+body {
+  position: relative;
+  min-height: 100%;
+  background-color: var(--background-color);
+  color: var(--primary-text-color);
+  line-height: 1.6;
+  font-family: var(--font-body);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-heading);
+}
+
+code,
+pre,
+kbd,
+samp {
+  font-family: var(--font-mono);
+}
+
+section {
+  min-height: 80dvh;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
