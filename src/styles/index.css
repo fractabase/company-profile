@@ -91,6 +91,14 @@
   --font-heading: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
   --font-body: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --animate-rotation: rotation 40s linear infinite;
+
+  @keyframes rotation {
+    100% {
+      rotate: 360deg;
+    }
+  }
 }
 
 @utility section-container {
