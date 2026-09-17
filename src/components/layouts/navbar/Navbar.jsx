@@ -9,7 +9,6 @@ const NAV_LINKS = [
   { href: "/#WorkProcess", label: "Alur Kerja", isRoute: false },
   { href: "/#Portfolio", label: "Portfolio", isRoute: false },
   { href: "/about-us", label: "Tentang Kami", isRoute: true },
-  { href: "/compliance", label: "Compliance", isRoute: true },
 ];
 
 export default function Navbar() {
