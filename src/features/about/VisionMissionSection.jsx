@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, memo } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { aboutNarrative } from "../../data/aboutData";
@@ -9,7 +9,7 @@ import { Heading } from "../../components/common/Heading";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function AboutVisionMissionSection() {
+const AboutVisionMissionSection = () => {
   const containerRef = useRef(null);
   const visionRef = useRef(null);
   const missionHeaderRef = useRef(null);
@@ -21,6 +21,15 @@ export default function AboutVisionMissionSection() {
   const engineeringPartnershipMissions = missions.slice(4, 8);
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) {
+      // Instant reveal without animation
+      gsap.set([visionRef.current, missionHeaderRef.current], { opacity: 1, y: 0, scale: 1 });
+      const missionItems = document.querySelectorAll(".mission-telemetry-row");
+      missionItems.forEach((el) => gsap.set(el, { opacity: 1, y: 0 }));
+      return;
+    }
+
     const ctx = gsap.context(() => {
       // 1. Vision Monolith scrubbed parallax lift from below
       gsap.fromTo(
@@ -272,4 +281,6 @@ export default function AboutVisionMissionSection() {
       </section>
     </>
   );
-}
+};
+
+export default memo(AboutVisionMissionSection);

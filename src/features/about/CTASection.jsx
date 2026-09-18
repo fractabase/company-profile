@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, memo } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextPlugin } from "gsap/TextPlugin";
@@ -6,13 +6,23 @@ import { Icons } from "../../components/common/Icons";
 
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
-export default function AboutCTASection() {
+const AboutCTASection = () => {
   const containerRef = useRef(null);
   const terminalTextRef = useRef(null);
   const leftColRef = useRef(null);
   const rightColRef = useRef(null);
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) {
+      // Instant reveal without animation
+      gsap.set([leftColRef.current, rightColRef.current], { opacity: 1, y: 0 });
+      if (terminalTextRef.current) {
+        terminalTextRef.current.textContent = "connect --target=fractabase_engineering --mode=partnership";
+      }
+      return;
+    }
+
     const ctx = gsap.context(() => {
       // 1. Left column scrubbed parallax lift from below
       gsap.fromTo(
@@ -204,4 +214,6 @@ export default function AboutCTASection() {
       </div>
     </section>
   );
-}
+};
+
+export default memo(AboutCTASection);

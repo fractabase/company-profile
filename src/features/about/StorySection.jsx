@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, memo } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Icons } from "../../components/common/Icons";
@@ -7,7 +7,7 @@ import { Heading } from "../../components/common/Heading";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function AboutStorySection() {
+const AboutStorySection = () => {
   const containerRef = useRef(null);
   const consoleDisplayRef = useRef(null);
   const [activeStageIndex, setActiveStageIndex] = useState(0);
@@ -87,6 +87,16 @@ export default function AboutStorySection() {
   };
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) {
+      // Instant reveal for all milestone blocks
+      const milestoneElements = document.querySelectorAll(".story-milestone-block");
+      milestoneElements.forEach((el) => {
+        gsap.set(el, { opacity: 1, y: 0 });
+      });
+      return;
+    }
+
     const ctx = gsap.context(() => {
       // Observe each narrative milestone block on scroll
       const milestoneElements = gsap.utils.toArray(".story-milestone-block");
@@ -339,4 +349,6 @@ export default function AboutStorySection() {
       </section>
     </>
   );
-}
+};
+
+export default memo(AboutStorySection);

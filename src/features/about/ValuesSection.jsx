@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, memo } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { companyPrinciples, scopeCapabilities } from "../../data/aboutData";
@@ -97,7 +97,7 @@ function PrincipleItemCard({ principle, colSpan = "", padding = "md", titleSize 
   );
 }
 
-export default function AboutValuesSection() {
+const AboutValuesSection = () => {
   const containerRef = useRef(null);
   const headerRef = useRef(null);
   const row1Ref = useRef(null);
@@ -107,6 +107,15 @@ export default function AboutValuesSection() {
   const [activeScopeIndex, setActiveScopeIndex] = useState(0);
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) {
+      // Instant reveal for all elements
+      gsap.set([headerRef.current, capabilitiesSectionRef.current], { opacity: 1, y: 0 });
+      const cards = document.querySelectorAll(".principle-item-card");
+      cards.forEach((card) => gsap.set(card, { opacity: 1, y: 0 }));
+      return;
+    }
+
     const ctx = gsap.context(() => {
       // 1. Header scrubbed lift from below
       gsap.fromTo(
@@ -186,73 +195,48 @@ export default function AboutValuesSection() {
         );
       }
 
-      // 3. Smooth 3D Mousemove tilt on cards (desktop only, RAF interpolated)
+      // 3. Smooth 3D Mousemove tilt on cards (desktop only)
       const mm = gsap.matchMedia();
       mm.add("(min-width: 1024px)", () => {
         const cards = gsap.utils.toArray(".principle-item-card");
         cards.forEach((card) => {
-          gsap.set(card, { transformPerspective: 1000, transformStyle: "preserve-3d" });
+          gsap.set(card, { transformPerspective: 1000 });
 
-          let targetX = 0;
-          let targetY = 0;
-          let currentX = 0;
-          let currentY = 0;
-          let isHovered = false;
-          let rafId = null;
-
-          const setRotY = gsap.quickSetter(card, "rotateY", "deg");
-          const setRotX = gsap.quickSetter(card, "rotateX", "deg");
-
-          const updateTilt = () => {
-            // Smooth lerp (0.1 = organic responsiveness)
-            currentX += (targetX - currentX) * 0.1;
-            currentY += (targetY - currentY) * 0.1;
-
-            setRotY(currentX);
-            setRotX(currentY);
-
-            // Keep loop running while hovered or while easing back to origin
-            if (isHovered || Math.abs(targetX - currentX) > 0.01 || Math.abs(targetY - currentY) > 0.01) {
-              rafId = requestAnimationFrame(updateTilt);
-            } else {
-              setRotY(0);
-              setRotX(0);
-              rafId = null;
-            }
+          const handleEnter = () => {
+            // Override transition-all so GSAP can control transform instantly
+            card.style.transition = "border-color 300ms, box-shadow 300ms";
           };
 
           const handleMove = (e) => {
             const rect = card.getBoundingClientRect();
-            const x = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2);
-            const y = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2);
+            const normX = (e.clientX - rect.left - rect.width / 2) / (rect.width / 2);
+            const normY = (e.clientY - rect.top - rect.height / 2) / (rect.height / 2);
 
-            // Max rotation 8 degrees in each axis
-            targetX = x * 20;
-            targetY = -y * 20;
-
-            if (!rafId) {
-              rafId = requestAnimationFrame(updateTilt);
-            }
-          };
-
-          const handleEnter = () => {
-            isHovered = true;
-            if (!rafId) {
-              rafId = requestAnimationFrame(updateTilt);
-            }
+            gsap.to(card, {
+              rotateY: normX * 2.5,
+              rotateX: -normY * 2.5,
+              duration: 0.2,
+              ease: "power1.out",
+              overwrite: "auto",
+            });
           };
 
           const handleLeave = () => {
-            isHovered = false;
-            targetX = 0;
-            targetY = 0;
-            if (!rafId) {
-              rafId = requestAnimationFrame(updateTilt);
-            }
+            gsap.to(card, {
+              rotateY: 0,
+              rotateX: 0,
+              duration: 0.5,
+              ease: "power2.out",
+              overwrite: "auto",
+              onComplete: () => {
+                // Restore transition-all after tilt returns to neutral
+                card.style.transition = "";
+              },
+            });
           };
 
           card.addEventListener("mouseenter", handleEnter);
-          card.addEventListener("mousemove", handleMove, { passive: true });
+          card.addEventListener("mousemove", handleMove);
           card.addEventListener("mouseleave", handleLeave);
         });
       });
@@ -323,7 +307,7 @@ export default function AboutValuesSection() {
           </div>
 
           {/* Row 2: 3 Cards */}
-          <div ref={row2Ref} className="grid grid-cols-1 md:grid-cols-3 gap-7 sm:gap-8 mb-7 sm:mb-8">
+          <div ref={row2Ref} className="grid grid-cols-1 lg:grid-cols-3 gap-7 sm:gap-8 mb-7 sm:mb-8">
             {row2Principles.map((principle) => (
               <PrincipleItemCard
                 key={principle.code}
@@ -477,4 +461,6 @@ export default function AboutValuesSection() {
       </section>
     </>
   );
-}
+};
+
+export default memo(AboutValuesSection);

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, memo } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextPlugin } from "gsap/TextPlugin";
@@ -17,7 +17,7 @@ const stats = [
   },
 ];
 
-export default function HeroSection() {
+const HeroSection = () => {
   const sectionRef = useRef(null);
   const headingRef = useRef(null);
   const subheadRef = useRef(null);
@@ -30,6 +30,8 @@ export default function HeroSection() {
   const segmentsBarRef = useRef(null);
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     const ctx = gsap.context(() => {
       // Set initial state without causing blink
       gsap.set(badgeRef.current, { opacity: 0, y: -20 });
@@ -39,13 +41,66 @@ export default function HeroSection() {
       gsap.set(ctaButtonsRef.current, { opacity: 0, y: 20 });
       gsap.set(blueprintRef.current, { opacity: 0, scale: 0.94, y: 25 });
       gsap.set(floatingTagsRef.current.children, { opacity: 0, y: 15, scale: 0.85 });
-      gsap.set(segmentsBarRef.current, { opacity: 0, y: 200 });
+      gsap.set(segmentsBarRef.current, { opacity: 0, y: 20 });
+
+      if (prefersReducedMotion) {
+        // Instant reveal without animation
+        gsap.set(
+          [
+            badgeRef.current,
+            headingRef.current,
+            subheadRef.current,
+            terminalBoxRef.current,
+            ctaButtonsRef.current,
+            blueprintRef.current,
+            segmentsBarRef.current,
+          ],
+          { opacity: 1, y: 0, scale: 1 },
+        );
+        gsap.set(floatingTagsRef.current.children, { opacity: 1, y: 0, scale: 1 });
+        if (terminalTextRef.current) {
+          terminalTextRef.current.textContent =
+            "FRACTABASE.init({ role: 'software_house', method: 'understand_first' });";
+        }
+        return;
+      }
+
+      // Add will-change for animated elements
+      gsap.set(
+        [
+          badgeRef.current,
+          headingRef.current,
+          subheadRef.current,
+          terminalBoxRef.current,
+          ctaButtonsRef.current,
+          blueprintRef.current,
+          segmentsBarRef.current,
+        ],
+        { willChange: "transform, opacity" },
+      );
+      gsap.set(floatingTagsRef.current.children, { willChange: "transform, opacity" });
 
       // 1. Initial entrance timeline
-      const timeline = gsap.timeline({ defaults: { ease: "power3.out" } });
+      const tl = gsap.timeline({
+        defaults: { ease: "power3.out" },
+        onComplete: () => {
+          // Remove will-change after entrance complete
+          gsap.set(
+            [
+              badgeRef.current,
+              headingRef.current,
+              subheadRef.current,
+              terminalBoxRef.current,
+              ctaButtonsRef.current,
+              segmentsBarRef.current,
+            ],
+            { willChange: "auto" },
+          );
+          gsap.set(floatingTagsRef.current.children, { willChange: "auto" });
+        },
+      });
 
-      timeline
-        .to(badgeRef.current, { opacity: 1, y: 0, duration: 0.5, delay: 0.05 })
+      tl.to(badgeRef.current, { opacity: 1, y: 0, duration: 0.5, delay: 0.05 })
         .to(headingRef.current, { opacity: 1, y: 0, duration: 0.7 }, "-=0.25")
         .to(subheadRef.current, { opacity: 1, y: 0, duration: 0.6 }, "-=0.35")
         .to(
@@ -153,6 +208,8 @@ export default function HeroSection() {
             { maxMouseX: 15, maxMouseY: 15, idleX: 8, idleY: 6, idleRot: 2, duration: 9, delay: 1.2 },
           ];
 
+          const tickerCallbacks = [];
+
           tags.forEach((tag, idx) => {
             const cfg = tagConfigs[idx] || tagConfigs[0];
             const setX = gsap.quickTo(tag, "x", { duration: 0.8, ease: "power2.out" });
@@ -185,7 +242,13 @@ export default function HeroSection() {
             };
 
             gsap.ticker.add(updateTagPosition);
+            tickerCallbacks.push(updateTagPosition);
           });
+
+          // Cleanup ticker callbacks on revert
+          return () => {
+            tickerCallbacks.forEach((cb) => gsap.ticker.remove(cb));
+          };
         }
 
         // Scroll parallax on left column
@@ -442,4 +505,6 @@ export default function HeroSection() {
       </section>
     </>
   );
-}
+};
+
+export default memo(HeroSection);

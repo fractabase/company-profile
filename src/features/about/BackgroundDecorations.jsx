@@ -1,7 +1,7 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, memo } from "react";
 import gsap from "gsap";
 
-export default function AboutBackgroundDecorations() {
+const AboutBackgroundDecorations = () => {
   const containerRef = useRef(null);
   const cube1Ref = useRef(null);
   const cube2Ref = useRef(null);
@@ -13,9 +13,13 @@ export default function AboutBackgroundDecorations() {
   const gridRef = useRef(null);
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) return;
+
     const ctx = gsap.context(() => {
       // 1. Subtle floating animation for coordinate marks (different directions & speeds)
       if (coord1Ref.current) {
+        gsap.set(coord1Ref.current, { willChange: "transform" });
         gsap.to(coord1Ref.current, {
           x: 12,
           y: -8,
@@ -28,6 +32,7 @@ export default function AboutBackgroundDecorations() {
       }
 
       if (coord2Ref.current) {
+        gsap.set(coord2Ref.current, { willChange: "transform" });
         gsap.to(coord2Ref.current, {
           x: -10,
           y: 14,
@@ -41,6 +46,7 @@ export default function AboutBackgroundDecorations() {
       }
 
       if (coord3Ref.current) {
+        gsap.set(coord3Ref.current, { willChange: "transform" });
         gsap.to(coord3Ref.current, {
           x: 8,
           y: 10,
@@ -54,6 +60,7 @@ export default function AboutBackgroundDecorations() {
       }
 
       if (coord4Ref.current) {
+        gsap.set(coord4Ref.current, { willChange: "transform" });
         gsap.to(coord4Ref.current, {
           x: -14,
           y: -12,
@@ -68,6 +75,7 @@ export default function AboutBackgroundDecorations() {
 
       // 2. Ambient floating/bobbing animation on the cubes (different speeds & directions)
       if (cube1Ref.current) {
+        gsap.set(cube1Ref.current, { willChange: "transform" });
         gsap.to(cube1Ref.current, {
           y: -25,
           rotation: 8,
@@ -79,6 +87,7 @@ export default function AboutBackgroundDecorations() {
       }
 
       if (cube2Ref.current) {
+        gsap.set(cube2Ref.current, { willChange: "transform" });
         gsap.to(cube2Ref.current, {
           y: 30,
           rotation: -10,
@@ -92,6 +101,7 @@ export default function AboutBackgroundDecorations() {
 
       // 3. Slow ambient rotation of the fractal spiral arc
       if (spiralRef.current) {
+        gsap.set(spiralRef.current, { willChange: "transform" });
         gsap.to(spiralRef.current, {
           rotation: 360,
           duration: 90,
@@ -103,6 +113,7 @@ export default function AboutBackgroundDecorations() {
 
       // 4. Slow grid drift
       if (gridRef.current) {
+        gsap.set(gridRef.current, { willChange: "transform" });
         gsap.to(gridRef.current, {
           xPercent: -2,
           yPercent: -2,
@@ -135,19 +146,31 @@ export default function AboutBackgroundDecorations() {
       />
 
       {/* 1. Subtle Technical Coordinate Marks (Solid Colors, High Transparency) */}
-      <div ref={coord1Ref} className="absolute top-[18%] left-[5%] font-mono text-[9px] text-primary/40 tracking-widest hidden md:block will-change-transform">
+      <div
+        ref={coord1Ref}
+        className="absolute top-[18%] left-[5%] font-mono text-[9px] text-primary/40 tracking-widest hidden md:block will-change-transform"
+      >
         SYS_LAT: 0x4F8A // COORD: [120.4, 45.2, 0.0]
       </div>
 
-      <div ref={coord2Ref} className="absolute top-[42%] right-[4%] font-mono text-[9px] text-secondary/40 tracking-widest hidden md:block will-change-transform">
+      <div
+        ref={coord2Ref}
+        className="absolute top-[42%] right-[4%] font-mono text-[9px] text-secondary/40 tracking-widest hidden md:block will-change-transform"
+      >
         MEM_ALLOC: RECURSIVE_BASE // BUFFER_SIZE: 1024_MB
       </div>
 
-      <div ref={coord3Ref} className="absolute top-[68%] left-[6%] font-mono text-[9px] text-primary/30 tracking-widest hidden md:block will-change-transform">
+      <div
+        ref={coord3Ref}
+        className="absolute top-[68%] left-[6%] font-mono text-[9px] text-primary/30 tracking-widest hidden md:block will-change-transform"
+      >
         ARCH_PIPELINE: DISCOVERY -&gt; SPEC -&gt; PRODUCTION
       </div>
 
-      <div ref={coord4Ref} className="absolute top-[88%] right-[6%] font-mono text-[9px] text-tertiary/40 tracking-widest hidden md:block will-change-transform">
+      <div
+        ref={coord4Ref}
+        className="absolute top-[88%] right-[6%] font-mono text-[9px] text-tertiary/40 tracking-widest hidden md:block will-change-transform"
+      >
         SECURITY_INTEGRITY: AES_256 // NDA_ACTIVE
       </div>
 
@@ -192,4 +215,6 @@ export default function AboutBackgroundDecorations() {
       </div>
     </div>
   );
-}
+};
+
+export default memo(AboutBackgroundDecorations);

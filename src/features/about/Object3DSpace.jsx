@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, memo } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -74,7 +74,7 @@ const INNER_EDGES = [
   [3, 7],
 ];
 
-export default function Object3DSpace() {
+const Object3DSpace = () => {
   const containerRef = useRef(null);
   const crystalGroupRef = useRef(null);
   const [points, setPoints] = useState({
@@ -86,10 +86,29 @@ export default function Object3DSpace() {
   const anglesRef = useRef({ ax: 0.3, ay: 0.4, az: 0.1 });
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) return;
+
     let animId;
+    let isVisible = true;
     const fov = 400;
     const cx = 150;
     const cy = 150;
+
+    // Pause animation loop when out of viewport using IntersectionObserver
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible && !animId) {
+          animId = requestAnimationFrame(renderLoop);
+        }
+      },
+      { threshold: 0.1 },
+    );
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
 
     const project = (pt, ax, ay, az) => {
       // 3D rotation: Yaw (Y), Pitch (X), Roll (Z)
@@ -123,6 +142,11 @@ export default function Object3DSpace() {
     };
 
     const renderLoop = () => {
+      if (!isVisible) {
+        animId = null;
+        return;
+      }
+
       anglesRef.current.ax += 0.007;
       anglesRef.current.ay += 0.009;
       anglesRef.current.az += 0.004;
@@ -161,7 +185,10 @@ export default function Object3DSpace() {
 
     animId = requestAnimationFrame(renderLoop);
 
-    return () => cancelAnimationFrame(animId);
+    return () => {
+      observer.disconnect();
+      if (animId) cancelAnimationFrame(animId);
+    };
   }, []);
 
   return (
@@ -287,4 +314,6 @@ export default function Object3DSpace() {
       </div>
     </div>
   );
-}
+};
+
+export default memo(Object3DSpace);

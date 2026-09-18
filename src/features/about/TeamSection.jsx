@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, memo } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { teamMembers, teamStats } from "../../data/team";
@@ -8,7 +8,7 @@ import { Heading } from "../../components/common/Heading";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export default function AboutTeamSection() {
+const AboutTeamSection = () => {
   const containerRef = useRef(null);
   const headerRef = useRef(null);
   const talentStageRef = useRef(null);
@@ -30,6 +30,16 @@ export default function AboutTeamSection() {
   };
 
   useEffect(() => {
+    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReducedMotion) {
+      // Instant reveal for all elements
+      gsap.set([headerRef.current, talentStageRef.current, statsStripRef.current], { opacity: 1, y: 0 });
+      if (statsStripRef.current) {
+        gsap.set(statsStripRef.current.children, { opacity: 1, y: 0 });
+      }
+      return;
+    }
+
     const ctx = gsap.context(() => {
       // 1. Header scrubbed lift from below
       gsap.fromTo(
@@ -322,4 +332,6 @@ export default function AboutTeamSection() {
       </section>
     </>
   );
-}
+};
+
+export default memo(AboutTeamSection);
