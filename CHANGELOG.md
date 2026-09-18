@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.1](https://github.com/fractabase/company-profile/compare/v0.2.0...v0.2.1) (2026-09-18)
+
+
+### Documentation
+
+* **structure:** add About Us page structure with sections and data files to STRUCTURE-PROJECT.md ([d79d80e](https://github.com/fractabase/company-profile/commit/d79d80e7793a805591ff0f50eb29fa98fe5e92b7))
+
 ## [0.2.0](https://github.com/fractabase/company-profile/compare/v0.1.4...v0.2.0) (2026-09-18)
 
 
