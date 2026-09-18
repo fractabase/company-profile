@@ -12,6 +12,8 @@ fractabase-interactive/
 ├── package.json                  # Konfigurasi npm, scripts, dependencies
 ├── package-lock.json             # Lock file dependencies
 ├── vite.config.js                # Konfigurasi Vite + plugin React & Tailwind
+├── eslint.config.js              # Konfigurasi ESLint (flat config)
+├── README.md                     # Dokumentasi project (overview, setup, scripts)
 ├── CHANGELOG.md                  # Riwayat perubahan versi (standard-version)
 ├── STRUCTURE-PROJECT.md          # File ini — peta struktur project
 │
@@ -56,21 +58,34 @@ fractabase-interactive/
     │   │   ├── WorkProcessSection.jsx       # 5 langkah kerja (timeline zigzag)
     │   │   ├── ProjectSection.jsx           # Portfolio: filter kategori, show more/less
     │   │   └── ContactSection.jsx           # Form kontak + info kontak (validasi, country code dropdown)
+    │   ├── about/
+    │   │   ├── HeroSection.jsx              # About Hero: animated title with 3D space background
+    │   │   ├── StorySection.jsx             # Company story & journey (2-column layout with image)
+    │   │   ├── VisionMissionSection.jsx     # Vision & Mission cards with icons
+    │   │   ├── ValuesSection.jsx            # Core values grid with icons & descriptions
+    │   │   ├── TeamSection.jsx              # Team member cards with social links
+    │   │   ├── CTASection.jsx               # Call-to-action section (link to contact)
+    │   │   ├── Object3DSpace.jsx            # 3D floating objects background (Canvas + GSAP)
+    │   │   └── BackgroundDecorations.jsx    # Animated gradient orbs background
     │   └── compliance/
     │       └── ComplianceSection.jsx        # Compliance & legalitas (khusus korporat/B2B) — belum di-import
     │
     ├── pages/
-    │   └── home/
-    │       ├── Home.jsx          # Home page: gabungan semua section
-    │       └── Home.module.css   # CSS module: background pattern hero & work-process
+    │   ├── home/
+    │   │   ├── Home.jsx          # Home page: gabungan semua section
+    │   │   └── Home.module.css   # CSS module: background pattern hero & work-process
+    │   └── about-us/
+    │       └── AboutUs.jsx       # About Us page: company story, vision/mission, values, team
     │
     ├── data/
+    │   ├── aboutData.js             # Data About Us: vision, mission, values (icon, title, description)
     │   ├── benefits.js              # Data benefit/value proposition (icon, title, description)
     │   ├── compliance.js            # Data compliance & legalitas (icon, title, desc)
     │   ├── contactFormData.js       # Data form kontak: PROJECT_TYPES, BUDGET_RANGES, TIME_TARGETS, COUNTRY_CODES
     │   ├── contactInfo.js           # Data kontak (email, WA, address, hours) & social links
     │   ├── projects.js              # Data portfolio (id, category, client, title, result, techStack)
     │   ├── serviceData.js           # Data layanan (icon, badge, title, description, features)
+    │   ├── team.js                  # Data team members (name, role, bio, avatar, social links)
     │   └── workProcessSteps.js      # Data langkah kerja (num, icon, title, desc)
     │
     ├── hooks/
@@ -136,14 +151,14 @@ fractabase-interactive/
 ### `src/features/`
 
 - **Fungsi**: Section/fitur yang menyusun halaman. Setiap folder = 1 kelompok section terkait
-- **Subfolder**: `home/` (section-section penyusun Home page), `compliance/` (section compliance)
-- **Boleh**: Komponen yang spesifik hanya untuk section tersebut, CSS Module section, data lokal section
+- **Subfolder**: `home/` (section-section penyusun Home page), `about/` (section-section penyusun About Us page), `compliance/` (section compliance belum aktif)
+- **Boleh**: Komponen yang spesifik hanya untuk section tersebut, CSS Module section, data lokal section, komponen 3D/animasi spesifik page (seperti `Object3DSpace`, `BackgroundDecorations`)
 - **Tidak boleh**: Komponen yang dipakai di section lain (pindah ke `common/`)
 
 ### `src/pages/`
 
 - **Fungsi**: Halaman/route yang dirender oleh React Router
-- **Subfolder aktif**: `home/` (satu-satunya halaman yang ada)
+- **Subfolder aktif**: `home/` (halaman utama), `about-us/` (halaman tentang kami)
 - **Boleh**: Komponen spesifik page, CSS Module page, komposisi section menjadi halaman
 - **Tidak boleh**: Komponen reusable (pindah ke `components/`), data statis global (pindah ke `data/`)
 
@@ -151,12 +166,14 @@ fractabase-interactive/
 
 - **Fungsi**: Data statis yang dipakai oleh komponen/halaman
 - **Berkas**:
+  - `aboutData.js` — Data About Us: vision, mission, values (icon, title, description)
   - `benefits.js` — Data benefit/value proposition (icon, title, description)
   - `compliance.js` — Data compliance & legalitas (icon, title, desc)
   - `contactFormData.js` — Data form kontak: PROJECT_TYPES, BUDGET_RANGES, TIME_TARGETS, COUNTRY_CODES
   - `contactInfo.js` — Data kontak (email, WA, address, hours) & social links
   - `projects.js` — Data portfolio (id, category, client, title, result, techStack)
   - `serviceData.js` — Data layanan (icon, badge, title, description, features)
+  - `team.js` — Data team members (name, role, bio, avatar, social links)
   - `workProcessSteps.js` — Data langkah kerja (num, icon, title, desc)
 - **Boleh**: File data statis lainnya (misal: `testimonials.js`, `faq.js`)
 - **Tidak boleh**: Fungsi/logika yang bukan data (pindah ke `utils/` atau `hooks/`), data yang hanya dipakai 1 komponen (bisa taruh di file komponen)
@@ -186,42 +203,55 @@ fractabase-interactive/
 
 ## 3. Penjelasan File Kunci
 
-| File                                       | Fungsi                                                                                                                        |
-| ------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
-| `index.html`                               | Entry point HTML. Berisi script untuk apply theme sebelum React load (mencegah flash).                                        |
-| `vite.config.js`                           | Konfigurasi build: plugin React & Tailwind CSS.                                                                               |
-| `src/main.jsx`                             | Entry point React. Mount `<App />` ke `#root` dengan StrictMode.                                                              |
-| `src/App.jsx`                              | Root component. Bungkus dengan `ThemeProvider` dan `BrowserRouter`. Render `Navbar`, `Routes`, `Footer`.                      |
-| `src/styles/index.css`                     | Design tokens (CSS variables), Tailwind import, `@theme` block, global styles, keyframes.                                     |
-| `src/theme/ThemeContext.js`                | Context untuk state tema. Export `THEMES`, `THEME_STORAGE_KEY`, `useTheme()`.                                                 |
-| `src/theme/ThemeProvider.jsx`              | Provider yang resolve tema (light/dark/device), apply ke `document.documentElement`, listen OS preference.                    |
-| `src/theme/ThemeToggle.jsx`                | UI untuk ganti tema. Mobile: 1 button cycle. Desktop: 3 button group.                                                         |
-| `src/components/common/Icons.jsx`          | Semua SVG icon sebagai komponen React. Centralized — tidak boleh inline `<svg>` di tempat lain.                               |
-| `src/components/common/IconWrapper.jsx`    | Wrapper SVG reusable dengan default viewBox, stroke, className.                                                               |
-| `src/components/common/Card.jsx`           | Card primitives: `Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter`, `CardBadge`.              |
-| `src/components/common/Heading.jsx`        | Heading primitive: `tagline`, `title`, `paragraph`, `align`. Reusable untuk section heading dengan border-bottom.              |
-| `src/components/layouts/navbar/Navbar.jsx` | Fixed header: logo, nav links (menggunakan NavigationLink), theme toggle, mobile dropdown menu.                               |
+| File                                               | Fungsi                                                                                                                |
+| -------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- |
+| `index.html`                                       | Entry point HTML. Berisi script untuk apply theme sebelum React load (mencegah flash).                                |
+| `vite.config.js`                                   | Konfigurasi build: plugin React & Tailwind CSS.                                                                       |
+| `eslint.config.js`                                 | Konfigurasi ESLint (flat config): rules, plugins react-hooks & react-refresh.                                         |
+| `src/main.jsx`                                     | Entry point React. Mount `<App />` ke `#root` dengan StrictMode.                                                      |
+| `src/App.jsx`                                      | Root component. Bungkus dengan `ThemeProvider` dan `BrowserRouter`. Render `Navbar`, `Routes`, `Footer`.              |
+| `src/styles/index.css`                             | Design tokens (CSS variables), Tailwind import, `@theme` block, global styles, keyframes.                             |
+| `src/theme/ThemeContext.js`                        | Context untuk state tema. Export `THEMES`, `THEME_STORAGE_KEY`, `useTheme()`.                                         |
+| `src/theme/ThemeProvider.jsx`                      | Provider yang resolve tema (light/dark/device), apply ke `document.documentElement`, listen OS preference.            |
+| `src/theme/ThemeToggle.jsx`                        | UI untuk ganti tema. Mobile: 1 button cycle. Desktop: 3 button group.                                                 |
+| `src/components/common/Icons.jsx`                  | Semua SVG icon sebagai komponen React. Centralized — tidak boleh inline `<svg>` di tempat lain.                       |
+| `src/components/common/IconWrapper.jsx`            | Wrapper SVG reusable dengan default viewBox, stroke, className.                                                       |
+| `src/components/common/Card.jsx`                   | Card primitives: `Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter`, `CardBadge`.      |
+| `src/components/common/Heading.jsx`                | Heading primitive: `tagline`, `title`, `paragraph`, `align`. Reusable untuk section heading dengan border-bottom.     |
+| `src/components/layouts/navbar/Navbar.jsx`         | Fixed header: logo, nav links (menggunakan NavigationLink), theme toggle, mobile dropdown menu.                       |
 | `src/components/layouts/navbar/NavigationLink.jsx` | Nav link reusable: mendukung route (`Link`) atau anchor (`a`), variant mobile & desktop, animasi stagger.             |
-| `src/components/layouts/footer/Footer.jsx` | Footer: brand info, nav links, contact info, social links, policies, theme toggle.                                            |
-| `src/pages/home/Home.jsx`                  | Home page. Gabungan section: Hero, Services, ValueProposition, WorkProcess, Project, Contact.                                |
-| `src/pages/home/Home.module.css`           | CSS Module untuk Home: background pattern hero (SVG fractal) & work-process.                                                  |
-| `src/data/benefits.js`                     | Data benefit/value proposition: icon, title, description.                                                                     |
-| `src/data/compliance.js`                   | Data compliance & legalitas: icon, title, desc.                                                                               |
-| `src/data/contactFormData.js`              | Data form kontak: PROJECT_TYPES, BUDGET_RANGES, TIME_TARGETS, COUNTRY_CODES.                                                  |
-| `src/data/contactInfo.js`                  | Data kontak (email, whatsapp, address, hours) & social links (github, linkedin, whatsapp, email).                             |
-| `src/data/projects.js`                     | Data portfolio: id, category, categoryLabel, client, title, description, result, techStack, ctaLink.                          |
-| `src/data/serviceData.js`                  | Data layanan: icon, badge, badgeVariant, title, description, features, actionText.                                            |
-| `src/data/workProcessSteps.js`             | Data langkah kerja: num, icon, title, desc.                                                                                   |
-| `src/features/home/HeroSection.jsx`              | Hero section: heading, CTA, browser mockup, floating badges. Menggunakan Icons. |
-| `src/features/home/ServiceSection.jsx`           | Layanan: grid 6 card dari serviceData. Menggunakan Card, Heading, Icons. |
-| `src/features/home/ValuePropositionSection.jsx`  | Why Fractabase: 6 benefit cards. Menggunakan Card, Heading, benefits data. |
-| `src/features/home/WorkProcessSection.jsx`       | 5 langkah kerja (timeline zigzag). Menggunakan Card, Heading, workProcessSteps data. |
-| `src/features/home/ProjectSection.jsx`           | Portfolio: filter kategori, show more/less. Menggunakan Icons, Heading, projects data. |
-| `src/features/home/ContactSection.jsx`           | Form kontak + info kontak. Menggunakan Card, Icons, useContactForm hook, validators, contactFormData, contactInfo. |
-| `src/features/compliance/ComplianceSection.jsx` | Section compliance & legalitas (korporat/B2B). Menggunakan Card, Icons, compliance data. |
-| `src/hooks/useContactForm.js`              | Custom hook untuk form kontak: state management, validasi, submit logic.                                                      |
-| `src/utils/validators.js`                  | Fungsi validasi: email regex, phone length, required field.                                                                   |
-| `src/utils/formatPhoneNumber.js`           | Fungsi format nomor telepon menjadi format Indonesia (xxx-xxxx-xxxx).                                                         |
+| `src/components/layouts/footer/Footer.jsx`         | Footer: brand info, nav links, contact info, social links, policies, theme toggle.                                    |
+| `src/components/layouts/footer/FooterLink.jsx`     | Footer link reusable: mendukung route (`Link`) atau anchor (`a`), hover underline animation.                          |
+| `src/pages/home/Home.jsx`                          | Home page. Gabungan section: Hero, Services, ValueProposition, WorkProcess, Project, Contact.                         |
+| `src/pages/home/Home.module.css`                   | CSS Module untuk Home: background pattern hero (SVG fractal) & work-process.                                          |
+| `src/pages/about-us/AboutUs.jsx`                   | About Us page. Gabungan section: Hero, Story, VisionMission, Values, Team, CTA.                                       |
+| `src/features/home/HeroSection.jsx`                | Hero section: heading, CTA, browser mockup, floating badges. Menggunakan Icons.                                       |
+| `src/features/home/ServiceSection.jsx`             | Layanan: grid 6 card dari serviceData. Menggunakan Card, Heading, Icons.                                              |
+| `src/features/home/ValuePropositionSection.jsx`    | Why Fractabase: 6 benefit cards. Menggunakan Card, Heading, benefits data.                                            |
+| `src/features/home/WorkProcessSection.jsx`         | 5 langkah kerja (timeline zigzag). Menggunakan Card, Heading, workProcessSteps data.                                  |
+| `src/features/home/ProjectSection.jsx`             | Portfolio: filter kategori, show more/less. Menggunakan Icons, Heading, projects data.                                |
+| `src/features/home/ContactSection.jsx`             | Form kontak + info kontak. Menggunakan Card, Icons, useContactForm, validators, contactFormData, contactInfo.         |
+| `src/features/about/HeroSection.jsx`               | About Hero: animated title dengan 3D space background (Object3DSpace + BackgroundDecorations).                        |
+| `src/features/about/StorySection.jsx`              | Company story & journey (2-column layout with image).                                                                 |
+| `src/features/about/VisionMissionSection.jsx`      | Vision & Mission: 2 card dengan icons.                                                                                |
+| `src/features/about/ValuesSection.jsx`             | Core values grid dengan icons & descriptions.                                                                         |
+| `src/features/about/TeamSection.jsx`               | Team member cards dengan photo, role, bio, dan social links.                                                          |
+| `src/features/about/CTASection.jsx`                | Call-to-action section (link ke halaman contact).                                                                     |
+| `src/features/about/Object3DSpace.jsx`             | 3D floating objects background (Canvas + GSAP). Dipakai oleh HeroSection About.                                       |
+| `src/features/about/BackgroundDecorations.jsx`     | Animated gradient orbs background. Dipakai oleh HeroSection About.                                                    |
+| `src/features/compliance/ComplianceSection.jsx`    | Section compliance & legalitas (korporat/B2B). Menggunakan Card, Icons, compliance data. Belum di-import ke mana pun. |
+| `src/data/aboutData.js`                            | Data About Us: vision, mission, values (icon, title, description).                                                    |
+| `src/data/benefits.js`                             | Data benefit/value proposition: icon, title, description.                                                             |
+| `src/data/compliance.js`                           | Data compliance & legalitas: icon, title, desc.                                                                       |
+| `src/data/contactFormData.js`                      | Data form kontak: PROJECT_TYPES, BUDGET_RANGES, TIME_TARGETS, COUNTRY_CODES.                                          |
+| `src/data/contactInfo.js`                          | Data kontak (email, whatsapp, address, hours) & social links (github, linkedin, whatsapp, email).                     |
+| `src/data/projects.js`                             | Data portfolio: id, category, categoryLabel, client, title, description, result, techStack, ctaLink.                  |
+| `src/data/serviceData.js`                          | Data layanan: icon, badge, badgeVariant, title, description, features, actionText.                                    |
+| `src/data/team.js`                                 | Data team members: name, role, bio, avatar, social links (linkedin, twitter, github).                                 |
+| `src/data/workProcessSteps.js`                     | Data langkah kerja: num, icon, title, desc.                                                                           |
+| `src/hooks/useContactForm.js`                      | Custom hook untuk form kontak: state management, validasi, submit logic.                                              |
+| `src/utils/validators.js`                          | Fungsi validasi: email regex, phone length, required field.                                                           |
+| `src/utils/formatPhoneNumber.js`                   | Fungsi format nomor telepon menjadi format Indonesia (xxx-xxxx-xxxx).                                                 |
 
 ---
 
@@ -233,13 +263,20 @@ fractabase-interactive/
 App (ThemeProvider > BrowserRouter)
   ├── Navbar (fixed top, outside Routes) — navigasi lintas rute
   ├── Routes
-  │   └── Home ("/")
-  │       ├── HeroSection (features/home/HeroSection.jsx)
-  │       ├── ServiceSection (features/home/ServiceSection.jsx)
-  │       ├── ValuePropositionSection (features/home/ValuePropositionSection.jsx)
-  │       ├── WorkProcessSection (features/home/WorkProcessSection.jsx)
-  │       ├── ProjectSection (features/home/ProjectSection.jsx)
-  │       └── ContactSection (features/home/ContactSection.jsx)
+  │   ├── Home ("/")
+  │   │   ├── HeroSection (features/home/HeroSection.jsx)
+  │   │   ├── ServiceSection (features/home/ServiceSection.jsx)
+  │   │   ├── ValuePropositionSection (features/home/ValuePropositionSection.jsx)
+  │   │   ├── WorkProcessSection (features/home/WorkProcessSection.jsx)
+  │   │   ├── ProjectSection (features/home/ProjectSection.jsx)
+  │   │   └── ContactSection (features/home/ContactSection.jsx)
+  │   └── AboutUs ("/about-us")
+  │       ├── HeroSection (features/about/HeroSection.jsx)
+  │       ├── StorySection (features/about/StorySection.jsx)
+  │       ├── VisionMissionSection (features/about/VisionMissionSection.jsx)
+  │       ├── ValuesSection (features/about/ValuesSection.jsx)
+  │       ├── TeamSection (features/about/TeamSection.jsx)
+  │       └── CTASection (features/about/CTASection.jsx)
   └── Footer (outside Routes)
 ```
 
@@ -294,7 +331,7 @@ App (ThemeProvider > BrowserRouter)
 
 - **Taruh di**: `src/features/<nama-section>/` — bersama file section-nya
 - **JANGAN taruh di**: `src/components/common/` (karena tidak reusable)
-- **Contoh**: `HeroSection.jsx` seharusnya di `src/features/hero/`
+- **Contoh**: `Object3DSpace.jsx` hanya untuk About → taruh di `src/features/about/`
 
 ### Halaman/route baru selain Home
 
@@ -325,7 +362,7 @@ App (ThemeProvider > BrowserRouter)
 ### File konfigurasi baru (jika ada)
 
 - **Taruh di**: Root project (`/`)
-- **Contoh**: `.eslintrc.js`, `commitlint.config.js`
+- **Contoh**: `eslint.config.js`, `commitlint.config.js`
 - **Jangan taruh di**: `src/` (kecuali konfigurasi spesifik feature yang memang harus di sana)
 
 ### Custom hook baru
@@ -347,7 +384,7 @@ App (ThemeProvider > BrowserRouter)
 | Tipe                         | Konvensi                                        | Contoh                                            |
 | ---------------------------- | ----------------------------------------------- | ------------------------------------------------- |
 | Component (file)             | PascalCase `.jsx`                               | `HeroSection.jsx`, `Navbar.jsx`                   |
-| Component (folder)           | lowercase (nama section)                        | `hero/`, `contact/`, `work-process/`              |
+| Component (folder)           | lowercase (nama section)                        | `about/`, `home/`, `compliance/`                  |
 | Context/Hook (file)          | camelCase `.js`                                 | `ThemeContext.js`                                 |
 | Context provider             | PascalCase `.jsx`                               | `ThemeProvider.jsx`                               |
 | Data file                    | camelCase `.js`                                 | `serviceData.js`, `projects.js`                   |
@@ -426,7 +463,7 @@ App (ThemeProvider > BrowserRouter)
 
 Setiap kali ada perubahan struktur project — baik penambahan folder/file baru, pemindahan file, penggantian nama file/folder, penghapusan file/folder, atau munculnya pola baru — file `STRUCTURE-PROJECT.md` ini **WAJIB diperbarui** mengikuti perubahan tersebut.
 
-Tujuannya agar file ini tetap menjadi **source of truth** struktur project — bukan dokumentasi yang cepat basa dan tidak mencerminkan kondisi asli.
+Tujuannya agar file ini tetap menjadi **source of truth** struktur project — bukan dokumentasi yang cepat basi dan tidak mencerminkan kondisi asli.
 
 **Siapa yang harus update:**
 
@@ -443,6 +480,8 @@ Tujuannya agar file ini tetap menjadi **source of truth** struktur project — b
 
 ## 10. Riwayat Revisi
 
-| Tanggal | Perubahan |
-|---------|-----------|
-| 2026-09-11 | Update struktur features — semua section Home dipindah ke features/home/. Menghapus referensi folder individual (hero, project, services, dll). Menambahkan FooterLink.jsx. Menghapus catatan folder kosong. |
+| Tanggal    | Perubahan                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 2026-09-11 | Update struktur features — semua section Home dipindah ke features/home/. Menghapus referensi folder individual (hero, project, services, dll). Menambahkan FooterLink.jsx. Menghapus catatan folder kosong.                                                                                                                                                                                                                                                                                                                                                       |
+| 2026-09-15 | **REFACTOR** Privacy Policy + Terms & Conditions split per-section: (1) Pecah KEDUANYA menjadi one-section-one-file pattern (components/, hooks/, sections/), (2) Shared TOC + useScrollSpy hook, (3) Terms: tambah 3-layer hero parallax (grid, symbols, counter) + section depth parallax (number/content speed difference) + highlight border grow animation, (4) Rewrite copy Terms: aktif voice, hapus AI slop, substance unchanged, (5) Color audit: 60% (bg-surface, border-line) + 30% (bg-tertiary highlight) + 10% (text-primary, text-tertiary accent). |
+| 2026-09-18 | **feat/about-us**: (1) Tambah `src/features/about/` — 8 komponen section (HeroSection, StorySection, VisionMissionSection, ValuesSection, TeamSection, CTASection, Object3DSpace, BackgroundDecorations), (2) Tambah `src/pages/about-us/AboutUs.jsx`, (3) Tambah `src/data/aboutData.js` + `src/data/team.js`, (4) Tambah `README.md` + `eslint.config.js` di root, (5) Hapus pages & features privacy-policy dan terms-and-conditions (sudah tidak ada di codebase), (6) Update Layout Pattern diagram dengan route `/about-us`.                                 |
