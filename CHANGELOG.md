@@ -2,6 +2,36 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/fractabase/company-profile/compare/v0.1.4...v0.2.0) (2026-09-18)
+
+
+### Features
+
+* **3d-object-space:** implement 3D geometric representation of the Architectural Fractal Crystalline Polyhedron ([018178a](https://github.com/fractabase/company-profile/commit/018178a850fc88a6d855aa8885014e4dd4b53fcf))
+* **about-background:** add animated background decorations for the About page ([a78bf2a](https://github.com/fractabase/company-profile/commit/a78bf2aba9721ecc3549cac5395ef06bb8702025))
+* **about-cta-section:** add About CTA section with interactive terminal text and scroll-triggered animations ([7ad6e15](https://github.com/fractabase/company-profile/commit/7ad6e15910adb727aebf9ca8316dce5e0d904aa5))
+* **about-data:** add company narrative, principles, client segments, and scope capabilities ([9436287](https://github.com/fractabase/company-profile/commit/9436287b672ce5cca1e3789838cef0cd9bb845db))
+* **about-story-section:** add interactive narrative section with stages and animations ([b3ab31f](https://github.com/fractabase/company-profile/commit/b3ab31ff6653c68921972bdb5e80a3e7e962aa0a))
+* **about-team-section:** add About Team section with interactive member selection and scroll-triggered animations ([33a3b40](https://github.com/fractabase/company-profile/commit/33a3b405d943debe78c0860e5525cb82d8be5f49))
+* **about-us:** implement About Us page with sections and smooth scrolling ([ecf73f3](https://github.com/fractabase/company-profile/commit/ecf73f30d1109bb8d2311079cf2833642c98f712))
+* **about-values-section:** add About Values section with animated principle cards and scroll-triggered effects ([01f8682](https://github.com/fractabase/company-profile/commit/01f868266c115cf39de34e137f980fb1fab3feeb))
+* **about-vision-mission:** add Vision and Mission section with animations and parallax effects ([8c7e098](https://github.com/fractabase/company-profile/commit/8c7e098ead19dd46bd74f7682d39d1bfc49885f5))
+* **app:** add route for About Us page in the main application ([7147836](https://github.com/fractabase/company-profile/commit/71478365b4715553cbd701ac6697c549ccb79cbf))
+* **hero-section:** add interactive HeroSection component with animations and stats display ([dde7292](https://github.com/fractabase/company-profile/commit/dde7292d44e80bb15780ad4f2265aada0ba2fdb5))
+* **icons:** add Crown, Chat, MapPin, and WhatsApp icons ([9302dd4](https://github.com/fractabase/company-profile/commit/9302dd417db5ca2cdf9042785f03babb6533377d))
+* **team-data:** add team members and statistics data ([1afd9ac](https://github.com/fractabase/company-profile/commit/1afd9acbed62dc9508675de47e46afe783911080))
+
+
+### Refactoring
+
+* **navbar:** remove compliance link from navigation ([f76a462](https://github.com/fractabase/company-profile/commit/f76a462ad9fa1de5c62d08d0fdc3ad47feb184e4))
+
+
+### Styling & UI Tweaks
+
+* **global-styles:** add rotation animation keyframes and variable ([8c04262](https://github.com/fractabase/company-profile/commit/8c04262eabd319f63c5b441f62eea236d55733bf))
+* **heading:** update tagline font and paragraph spacing ([16ee0c0](https://github.com/fractabase/company-profile/commit/16ee0c020f7fec03b5770bde6e5aae2fddf22ba2))
+
 ### [0.1.4](https://github.com/fractabase/company-profile/compare/v0.1.3...v0.1.4) (2026-09-11)
 
 
