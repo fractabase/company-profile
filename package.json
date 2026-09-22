@@ -1,7 +1,7 @@
 {
   "name": "fractabase-interactive",
   "private": false,
-  "version": "0.3.0",
+  "version": "0.4.0",
   "type": "module",
   "description": "Fractabase Interactive membangun solusi digital yang mengubah kebutuhan bisnis menjadi software yang terstruktur, efisien, dan bermanfaat.",
   "keywords": [
@@ -34,7 +34,7 @@
   },
   "packageManager": "npm@10.9.8",
   "scripts": {
-    "dev": "vite",
+    "dev": "vite  --host 0.0.0.0",
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",

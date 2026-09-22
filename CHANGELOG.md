@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.4.0](https://github.com/fractabase/company-profile/compare/v0.3.0...v0.4.0) (2026-09-22)
+
+
+### Features
+
+* **App:** add route for PrivacyPolicy component ([62353a2](https://github.com/fractabase/company-profile/commit/62353a293815d4ef63ed3a2de0c0de2da8503497))
+* **legal-toc:** add mobile and desktop table of contents components ([a041f11](https://github.com/fractabase/company-profile/commit/a041f11b96e4fb32ca3a187d5c40bd1efa86c280))
+* **privacy-data:** add privacy policy data structure and content ([f91a499](https://github.com/fractabase/company-profile/commit/f91a499fb3440ee23bfce70f5d8ff5d0b214540b))
+* **privacy-policy-header:** add PrivacyPolicyHeader component with legal document details ([c26e408](https://github.com/fractabase/company-profile/commit/c26e4086d8816fb449042d89db1e31e2fafa4981))
+* **privacy-policy-section:** add PrivacyPolicySection component with dynamic content rendering ([f3c252e](https://github.com/fractabase/company-profile/commit/f3c252ea8d2a84ca50767273e8ed9dbb55e0f0f5))
+* **privacy-policy:** create PrivacyPolicy component with scroll-to-top effect ([d61dd05](https://github.com/fractabase/company-profile/commit/d61dd05276ad4fd40a6660eed31a17928efd3ff6))
+* **privacy-section:** add PrivacySectionCard component with GSAP animations ([5f38705](https://github.com/fractabase/company-profile/commit/5f38705c1ae63c5ab75eee8675e71e6bf88da0cc))
+* **scroll-spy:** add custom hook for scroll-spy behavior on sections ([53e1891](https://github.com/fractabase/company-profile/commit/53e1891566b5eb8a2094bc9888e1d0df37599de6))
+
 ## [0.3.0](https://github.com/fractabase/company-profile/compare/v0.2.1...v0.3.0) (2026-09-22)
 
 
