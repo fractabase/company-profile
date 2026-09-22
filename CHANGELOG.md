@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.5.0](https://github.com/fractabase/company-profile/compare/v0.4.0...v0.5.0) (2026-09-22)
+
+
+### Features
+
+* **App:** add route for TermsAndConditions page ([453c617](https://github.com/fractabase/company-profile/commit/453c617aa712e2949b68f3b4bf7e8fabedb8edbf))
+* **terms-and-conditions:** add terms and conditions data structure with sections ([efd3a29](https://github.com/fractabase/company-profile/commit/efd3a2964e59a5ed1ae2ae3e3218740991a01281))
+* **terms-and-conditions:** add TermsAndConditionsSection component with TOC and section cards ([a42afbf](https://github.com/fractabase/company-profile/commit/a42afbf5ab576babb4bfe52267556db72ed3023e))
+* **terms-and-conditions:** create TermsAndConditions component with scroll-to-top effect ([df2fd2e](https://github.com/fractabase/company-profile/commit/df2fd2eb6371ce69c18a8c11551c7c50943079e9))
+* **terms-and-conditions:** create TermsAndConditionsHeader component with metadata display ([09307da](https://github.com/fractabase/company-profile/commit/09307da6394dc5a6f59d466d4a26d1ee472da06c))
+* **terms-and-conditions:** implement TermsSectionCard component with GSAP animations ([7fd24e5](https://github.com/fractabase/company-profile/commit/7fd24e56348a7444122ee9aadc80d46138c7f3a1))
+
 ## [0.4.0](https://github.com/fractabase/company-profile/compare/v0.3.0...v0.4.0) (2026-09-22)
 
 
