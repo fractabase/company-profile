@@ -5,6 +5,7 @@ import Footer from "./components/layouts/footer/Footer";
 import AboutUs from "./pages/about-us/AboutUs";
 import Services from "./pages/services/Services";
 import PrivacyPolicy from "./pages/privacy-policy/PrivacyPolicy";
+import TermsAndConditions from "./pages/terms-and-conditions/TermsAndConditions";
 import { ThemeProvider } from "./theme/ThemeProvider";
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
             <Route path="/about-us" element={<AboutUs />} />
             <Route path="/services" element={<Services />} />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
           </Routes>
 
           <Footer />
