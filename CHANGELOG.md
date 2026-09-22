@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.3.0](https://github.com/fractabase/company-profile/compare/v0.2.1...v0.3.0) (2026-09-22)
+
+
+### Features
+
+* **services-data:** enhance serviceData with new offerings and detailed descriptions ([be73467](https://github.com/fractabase/company-profile/commit/be734672a05d82475c68f1c0d1e3b6072df3acdb))
+* **services:** add AnimatedCounter component for animated number display ([58e04b0](https://github.com/fractabase/company-profile/commit/58e04b036d4bf83c870b40f7da267f9321719fe8))
+* **services:** add CTASection component with GSAP animations and interactive elements ([d210614](https://github.com/fractabase/company-profile/commit/d21061415ad0d5ba677b0457c31c1cee88ea50da))
+* **services:** add DetailServiceSection component with GSAP animations and responsive design ([7d20218](https://github.com/fractabase/company-profile/commit/7d202181f8354694795ade12c8fc32fce8177a8e))
+* **services:** add EngagementModelSection component with GSAP animations and responsive design ([1f2b36e](https://github.com/fractabase/company-profile/commit/1f2b36ea5de24419c916c7d6b9f51b4e77d9d52e))
+* **services:** add FAQSection component with accordion functionality and GSAP animations ([06a9599](https://github.com/fractabase/company-profile/commit/06a9599f3f4dd296c44957e1d7ce54244f76bd8a))
+* **services:** add ProvenResultSection component for detailed metrics display ([76af58f](https://github.com/fractabase/company-profile/commit/76af58f4ef5198bdced55cf0e610bbe1d003dda2))
+* **services:** add Services route to App component ([336ab90](https://github.com/fractabase/company-profile/commit/336ab908608165674a048ac6ce394b9bfb9b0933))
+* **services:** add ServicesBackground component with animated background effects ([1ae1aa5](https://github.com/fractabase/company-profile/commit/1ae1aa5cc970d42965e11980d6e130270d752f7e))
+* **services:** implement HeroSection component with GSAP animations and responsive design ([88b8a73](https://github.com/fractabase/company-profile/commit/88b8a73b75c3ca932aac5be6593d4bedd0ff3b93))
+* **services:** implement Services page with GSAP animations and component structure ([6085fae](https://github.com/fractabase/company-profile/commit/6085faebc54a97d583406e3822b2ad532bf7b38d))
+
 ### [0.2.1](https://github.com/fractabase/company-profile/compare/v0.2.0...v0.2.1) (2026-09-18)
 
 
