@@ -27,7 +27,7 @@ const ColumnHeading = ({ children }) => {
 
 export default function Footer() {
   return (
-    <footer className="bg-primary/10 dark:bg-dark-secondary/10 h- text-primary-color">
+    <footer className="bg-primary/10 dark:bg-dark-secondary/10 h- text-primary-color [body[data-hide-footer]_&]:hidden">
       <div className="section-container py-16 md:py-20">
         <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-5">
           {/* Kolom 1 — Brand & Deskripsi (paling lebar) */}
