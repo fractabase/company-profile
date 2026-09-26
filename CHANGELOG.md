@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.6.0](https://github.com/fractabase/company-profile/compare/v0.5.0...v0.6.0) (2026-09-26)
+
+
+### Features
+
+* **500-page:** add custom 500 error page with styling and reload functionality ([56cc411](https://github.com/fractabase/company-profile/commit/56cc41103265be040b88bf18d2212dfb851c8be5))
+* **App:** restructure App component to include routing logic and offline notice ([81fc3db](https://github.com/fractabase/company-profile/commit/81fc3db248acec776f65db9acb396b9c540f4bf1))
+* **contact-form:** add network error handling and user feedback in ContactSection ([160da74](https://github.com/fractabase/company-profile/commit/160da744ff89907403e7f5fc8f5ada8f4efe31d5))
+* **error-handling:** add comprehensive error handling system ([c554733](https://github.com/fractabase/company-profile/commit/c554733f2bda0c65067b39913a945936bcc7c145))
+* **error-handling:** wrap routes in ErrorBoundary and add 500 error page route ([af854ff](https://github.com/fractabase/company-profile/commit/af854ff6eb464305103e29a360ac7c82bd9ec5e6))
+* **ErrorBoundary:** implement ErrorBoundary component with fallback UI and reload functionality ([6bb56db](https://github.com/fractabase/company-profile/commit/6bb56dbb4132d3b99a0ab1440d482d8d27f105ad))
+* **icons:** add ArrowLeft and Home icons to Icons component ([3b5858c](https://github.com/fractabase/company-profile/commit/3b5858c57a7916150491739195615624945ae785))
+* **icons:** add RefreshCw and AlertTriangle icons with custom SVG paths ([c548f25](https://github.com/fractabase/company-profile/commit/c548f250ba8c8db2be0dcd44062f9179fa4f437f))
+* **not-found:** create NotFoundSection component with animated 404 display and navigation options ([87968d9](https://github.com/fractabase/company-profile/commit/87968d9a2a18ac00cd584141849dda89dab952e2))
+* **not-found:** implement NotFound page with scroll reset and footer visibility control ([066042d](https://github.com/fractabase/company-profile/commit/066042d90fa808a95d410fd74b299cb6c6ad1a25))
+* **offline-notice:** add OfflineNotice component with online/offline status indicator ([e578170](https://github.com/fractabase/company-profile/commit/e57817052fbed7db94d8fa701acef42a25a8dee7))
+* **online-status:** add useOnlineStatus hook to track browser online/offline status ([d702cc7](https://github.com/fractabase/company-profile/commit/d702cc7c4bd38db575e556d58aef6a1877b6c659))
+* **particle-network:** implement useParticleNetwork hook for dynamic particle animation on canvas ([4e507a3](https://github.com/fractabase/company-profile/commit/4e507a300c8e31179ea9b136683cf3df2e3b7d2c))
+* **server-error:** add ServerErrorSection component with animations and reload functionality ([4afec84](https://github.com/fractabase/company-profile/commit/4afec84ac2ab316f3bea8570c76e73803a42790b))
+* **server-error:** create ServerError page to handle 500 errors with appropriate UI ([cd5f7b4](https://github.com/fractabase/company-profile/commit/cd5f7b4f082e02f0e28789e1b62011852128d441))
+* **styles:** add particle color variables and define content enter animation ([c93f7e4](https://github.com/fractabase/company-profile/commit/c93f7e4b5893739c26c8b4cfad1f60fad9631064))
+* **under-maintenance:** add UnderMaintenance page with scroll-to-top effect ([9260a3b](https://github.com/fractabase/company-profile/commit/9260a3bc369f19b7938f8c6dc1b381cef93edc65))
+* **under-maintenance:** create UnderMaintenanceSection with particle background and status message ([139a7bd](https://github.com/fractabase/company-profile/commit/139a7bd3930b75ca35f28ae811fca360577398c6))
+
+
+### Refactoring
+
+* **footer:** update footer visibility based on data-hide-footer attribute ([cc95648](https://github.com/fractabase/company-profile/commit/cc95648e33c4557c58df3d30236ecbf8fd28e5c5))
+
 ## [0.5.0](https://github.com/fractabase/company-profile/compare/v0.4.0...v0.5.0) (2026-09-22)
 
 
