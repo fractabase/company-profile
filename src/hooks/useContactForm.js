@@ -1,6 +1,7 @@
 import { useState, useCallback, useMemo } from "react";
 import { validators } from "../utils/validators";
 import { formatPhoneNumber } from "../utils/formatPhoneNumber";
+import { useOnlineStatus } from "./useOnlineStatus";
 
 const INITIAL_FORM_DATA = {
   name: "",
@@ -36,6 +37,7 @@ export function useContactForm({ onSubmit } = {}) {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState(null);
+  const isOnline = useOnlineStatus();
 
   const fieldIds = useMemo(() => ({
     name: "contact-name",
@@ -156,6 +158,12 @@ export function useContactForm({ onSubmit } = {}) {
       return;
     }
 
+    // Check network status before attempting submission
+    if (!isOnline) {
+      setSubmitStatus("network-error");
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitStatus(null);
 
@@ -173,12 +181,17 @@ export function useContactForm({ onSubmit } = {}) {
       setPhoneState(INITIAL_PHONE_STATE);
       setTouched(INITIAL_TOUCHED);
       setSubmitAttempted(false);
-    } catch {
-      setSubmitStatus("error");
+    } catch (error) {
+      // Detect network-specific errors
+      const isNetworkError = 
+        error instanceof TypeError && 
+        (error.message.includes("fetch") || error.message.includes("network"));
+      
+      setSubmitStatus(isNetworkError || !isOnline ? "network-error" : "error");
     } finally {
       setIsSubmitting(false);
     }
-  }, [formData, hasErrors, onSubmit, scrollToFirstError]);
+  }, [formData, hasErrors, onSubmit, scrollToFirstError, isOnline]);
 
   const resetForm = useCallback(() => {
     setSubmitted(false);

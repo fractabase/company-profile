@@ -231,14 +231,37 @@ export default function ContactSection() {
                 </CardContent>
               ) : (
                 <CardContent className="px-4 py-4 pt-0! lg:p-8">
-                  {/* Error message */}
+                  {/* Network error message */}
+                  {submitStatus === "network-error" && (
+                    <div className="mb-6 p-4 rounded-xl bg-tertiary/10 border border-tertiary/30 text-center space-y-3">
+                      <div className="w-12 h-12 bg-tertiary/20 text-tertiary rounded-full flex items-center justify-center mx-auto">
+                        <Icons.AlertCircle className="w-6 h-6" />
+                      </div>
+
+                      <h3 className="text-lg font-bold text-tertiary">Masalah Koneksi</h3>
+
+                      <p className="text-sm text-secondary-color">
+                        Pesan gagal dikirim karena masalah koneksi. Periksa jaringan Anda, lalu coba lagi.
+                      </p>
+
+                      <button
+                        type="button"
+                        onClick={() => setSubmitStatus(null)}
+                        className="mt-2 px-5 py-2 rounded-xl bg-tertiary/10 text-tertiary text-sm font-bold hover:bg-tertiary/20 transition"
+                      >
+                        Coba Lagi
+                      </button>
+                    </div>
+                  )}
+
+                  {/* Generic error message */}
                   {submitStatus === "error" && (
-                    <div className="mb-6 p-4 rounded-xl bg-red-500/10 border border-red-500/30 text-center space-y-3">
-                      <div className="w-12 h-12 bg-red-500/20 text-red-500 rounded-full flex items-center justify-center mx-auto">
+                    <div className="mb-6 p-4 rounded-xl bg-tertiary/10 border border-tertiary/30 text-center space-y-3">
+                      <div className="w-12 h-12 bg-tertiary/20 text-tertiary rounded-full flex items-center justify-center mx-auto">
                         <Icons.X className="w-6 h-6" />
                       </div>
 
-                      <h3 className="text-lg font-bold text-red-500">Gagal Mengirim</h3>
+                      <h3 className="text-lg font-bold text-tertiary">Gagal Mengirim</h3>
 
                       <p className="text-sm text-secondary-color">
                         Gagal mengirim pesan, silakan coba lagi atau hubungi kami langsung via WhatsApp.
@@ -247,7 +270,7 @@ export default function ContactSection() {
                       <button
                         type="button"
                         onClick={() => setSubmitStatus(null)}
-                        className="mt-2 px-5 py-2 rounded-xl bg-red-500/10 text-red-500 text-sm font-bold hover:bg-red-500/20 transition"
+                        className="mt-2 px-5 py-2 rounded-xl bg-tertiary/10 text-tertiary text-sm font-bold hover:bg-tertiary/20 transition"
                       >
                         Tutup
                       </button>
