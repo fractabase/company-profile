@@ -29,6 +29,11 @@ export const Icons = {
       <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
     </IconWrapper>
   ),
+  TrendingUp: (props) => (
+    <IconWrapper {...props}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.5 4.5L21.75 7.5M21.75 7.5H16.5M21.75 7.5V12.75" />
+    </IconWrapper>
+  ),
   ArrowRight: (props) => (
     <IconWrapper {...props}>
       <path strokeLinecap="round" strokeLinejoin="round" d="M14 5l7 7m0 0l-7 7m7-7H3" />
