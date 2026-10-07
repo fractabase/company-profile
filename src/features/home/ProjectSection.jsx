@@ -2,21 +2,8 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } fr
 import { Icons } from "../../components/common/Icons";
 import { projects, categoryLabels } from "../../data/projects";
 import { Heading } from "../../components/common/Heading";
+import { renderHighlight } from "../../utils/projectHelpers";
 
-// Bold otomatis pada angka / persentase di dalam teks hasil
-function renderHighlight(text) {
-  const words = text.split(" ");
-  return words.map((word, i) => (
-    <span key={i}>
-      {/[%0-9]/.test(word) ? <strong className="font-bold">{word}</strong> : word}
-      {i < words.length - 1 ? " " : ""}
-    </span>
-  ));
-}
-
-// Tinggi maksimal (px) list yang diperlihatkan sebelum di-collapse + tombol "show more".
-// Jika list lebih tinggi dari ini, sisa project disembunyikan di balik maxHeight dan
-// baru ditampilkan penuh setelah menekan tombol. Nilai ini bisa diubah (contoh: 500).
 const COLLAPSE_AT = 900;
 
 export default function PortfolioSection() {
