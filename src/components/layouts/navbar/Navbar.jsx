@@ -7,7 +7,7 @@ const NAV_LINKS = [
   { href: "/services", label: "Layanan", isRoute: true },
   { href: "/#ValueProposition", label: "Proposisi Nilai", isRoute: false },
   { href: "/#WorkProcess", label: "Alur Kerja", isRoute: false },
-  { href: "/#Portfolio", label: "Portfolio", isRoute: false },
+  { href: "/projects", label: "Projects", isRoute: true },
   { href: "/about-us", label: "Tentang Kami", isRoute: true },
 ];
 
