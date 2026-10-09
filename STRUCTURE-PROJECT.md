@@ -46,6 +46,7 @@ fractabase-interactive/
     │   │   ├── IconWrapper.jsx   # Wrapper SVG reusable (viewBox, stroke, className)
     │   │   ├── Card.jsx          # Card primitives: Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, CardBadge
     │   │   ├── Heading.jsx       # Heading primitive: tagline, title, paragraph, align
+    │   │   ├── CornerOverlay.jsx # Decorative dot grid pattern overlay + optional viewfinder corner brackets
     │   │   ├── LegalTOC.jsx      # Shared Table of Contents for legal pages: LegalMobileTOC & LegalDesktopTOC
     │   │   ├── OfflineNotice.jsx # Global connection status banner (appears when offline, confirmation when reconnected)
     │   │   └── ErrorBoundary.jsx # React Error Boundary (Class Component) — catches unhandled JS errors, renders fallback UI
@@ -84,6 +85,11 @@ fractabase-interactive/
     │   │   ├── CTASection.jsx               # Call-to-action: konsultasi gratis
     │   │   ├── ServicesBackground.jsx       # Background decoration: animated elements
     │   │   └── AnimatedCounter.jsx          # Utility: animated number counter untuk metrics
+    │   ├── projects/
+    │   │   ├── BackgroundDecorations.jsx    # Multi-layer parallax scroll background decorations (wireframes, coordinate telemetry, ambient glows)
+    │   │   ├── HeaderSection.jsx            # Projects Header: tagline, title, intro paragraph, dynamic stats row
+    │   │   ├── GridSection.jsx              # Filter pills + 3-col portfolio grid (CornerOverlay brackets, result box, tech stack, staggered entrance) + 3-plane scroll parallax per card (frame drift per kolom / media in-mask / content counter-drift)
+    │   │   └── CTASection.jsx               # Projects CTA: custom project consultation prompt
     │   ├── privacy-policy/
     │   │   ├── PrivacyPolicyHeader.jsx      # Header: title, last updated, intro
     │   │   ├── PrivacyPolicySection.jsx     # Main content: TOC + section cards
@@ -109,6 +115,8 @@ fractabase-interactive/
     │   │   └── AboutUs.jsx       # About Us page: company story, vision/mission, values, team
     │   ├── services/
     │   │   └── Services.jsx      # Services page: detail layanan, engagement model, FAQ, CTA
+    │   ├── projects/
+    │   │   └── Projects.jsx      # Projects page: portfolio catalog dengan filter, parallax cards, CTA + page-level parallax engine (elemen ber-`data-parallax-depth` di-translate kontinu saat scroll)
     │   ├── privacy-policy/
     │   │   └── PrivacyPolicy.jsx # Privacy Policy page: header + TOC + section cards
     │   ├── terms-and-conditions/
@@ -141,7 +149,8 @@ fractabase-interactive/
     │
     ├── utils/
     │   ├── validators.js            # Fungsi validasi (email, phone, required)
-    │   └── formatPhoneNumber.js     # Fungsi format nomor telepon
+    │   ├── formatPhoneNumber.js     # Fungsi format nomor telepon
+    │   └── projectHelpers.jsx       # Helper kustom: getCategoryStyle, renderHighlight, CATEGORY_STYLES
     │
     └── assets/
         ├── hero.png              # ⚠️ Hero image — tidak di-import ke mana pun
@@ -185,7 +194,7 @@ fractabase-interactive/
 ### `src/components/common/`
 
 - **Fungsi**: Komponen reusable yang dipakai di banyak tempat/feature
-- **Berkas**: `Icons.jsx`, `IconWrapper.jsx`, `Card.jsx` (Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, CardBadge), `Heading.jsx` (Heading primitive dengan tagline, title, paragraph, align), `LegalTOC.jsx` (shared TOC untuk legal pages), `OfflineNotice.jsx` (global connection status banner), `ErrorBoundary.jsx` (React Error Boundary — Class Component untuk menangkap unhandled JS errors dan render fallback UI)
+- **Berkas**: `Icons.jsx`, `IconWrapper.jsx`, `Card.jsx` (Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter, CardBadge), `Heading.jsx` (Heading primitive dengan tagline, title, paragraph, align), `CornerOverlay.jsx` (decorative dot grid pattern overlay + optional viewfinder corner brackets), `LegalTOC.jsx` (shared TOC untuk legal pages), `OfflineNotice.jsx` (global connection status banner), `ErrorBoundary.jsx` (React Error Boundary — Class Component untuk menangkap unhandled JS errors dan render fallback UI)
 - **Boleh**: Komponen UI generik lainnya (Button, Badge, Modal, dll)
 - **Tidak boleh**: Komponen yang spesifik hanya untuk 1 feature (misal: `HeroCard` hanya untuk Hero)
 
@@ -199,7 +208,7 @@ fractabase-interactive/
 ### `src/features/`
 
 - **Fungsi**: Section/fitur yang menyusun halaman. Setiap folder = 1 kelompok section terkait
-- **Subfolder aktif**: `home/` (6 section Home page), `about/` (8 section About page), `services/` (8 section Services page), `privacy-policy/` (3 komponen legal page), `terms-and-conditions/` (3 komponen legal page), `under-maintenance/` (1 section placeholder), `not-found/` (1 section 404), `server-error/` (1 section 500)
+- **Subfolder aktif**: `home/` (6 section Home page), `about/` (8 section About page), `services/` (8 section Services page), `projects/` (4 section Projects page), `privacy-policy/` (3 komponen legal page), `terms-and-conditions/` (3 komponen legal page), `under-maintenance/` (1 section placeholder), `not-found/` (1 section 404), `server-error/` (1 section 500)
 - **Subfolder belum aktif**: `compliance/` (section compliance belum di-import)
 - **Boleh**: Komponen yang spesifik hanya untuk section tersebut, CSS Module section, data lokal section, komponen 3D/animasi spesifik page (seperti `Object3DSpace`, `BackgroundDecorations`)
 - **Tidak boleh**: Komponen yang dipakai di section lain (pindah ke `common/`)
@@ -207,7 +216,7 @@ fractabase-interactive/
 ### `src/pages/`
 
 - **Fungsi**: Halaman/route yang dirender oleh React Router
-- **Subfolder aktif**: `home/` (halaman utama + CSS Module), `about-us/` (tentang kami), `services/` (layanan), `privacy-policy/` (kebijakan privasi), `terms-and-conditions/` (syarat & ketentuan), `under-maintenance/` (placeholder rute belum siap), `not-found/` (404 catch-all), `server-error/` (500 runtime crash fallback)
+- **Subfolder aktif**: `home/` (halaman utama + CSS Module), `about-us/` (tentang kami), `services/` (layanan), `projects/` (portfolio catalog), `privacy-policy/` (kebijakan privasi), `terms-and-conditions/` (syarat & ketentuan), `under-maintenance/` (placeholder rute belum siap), `not-found/` (404 catch-all), `server-error/` (500 runtime crash fallback)
 - **Boleh**: Komponen spesifik page, CSS Module page, komposisi section menjadi halaman
 - **Tidak boleh**: Komponen reusable (pindah ke `components/`), data statis global (pindah ke `data/`)
 
@@ -246,8 +255,8 @@ fractabase-interactive/
 ### `src/utils/`
 
 - **Fungsi**: Fungsi utility/helper murni (pure functions) — tidak bergantung pada React hook/state
-- **Berkas**: `validators.js` (validasi email, phone, required), `formatPhoneNumber.js` (format nomor telepon)
-- **Boleh**: Fungsi formatter, validator, parser/transformer data, fungsi perhitungan, fungsi generate/format string
+- **Berkas**: `validators.js` (validasi email, phone, required), `formatPhoneNumber.js` (format nomor telepon), `projectHelpers.jsx` (helper kustom: getCategoryStyle, renderHighlight, CATEGORY_STYLES)
+- **Boleh**: Fungsi formatter, validator, parser/transformer data, fungsi perhitungan, fungsi generate/format string, helper spesifik domain (misal: projectHelpers untuk Projects section)
 - **Tidak boleh**: Fungsi yang bergantung pada React hook/state (taruh di `hooks/`), komponen React (taruh di `components/` atau `features/`)
 
 ---
@@ -267,9 +276,10 @@ fractabase-interactive/
 | `src/theme/ThemeToggle.jsx`                        | UI untuk ganti tema. Mobile: 1 button cycle. Desktop: 3 button group.                                                 |
 | `src/components/common/Icons.jsx`                  | Semua SVG icon sebagai komponen React. Centralized — tidak boleh inline `<svg>` di tempat lain.                       |
 | `src/components/common/IconWrapper.jsx`            | Wrapper SVG reusable dengan default viewBox, stroke, className.                                                       |
-| `src/components/common/Card.jsx`                   | Card primitives: `Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter`, `CardBadge`.      |
-| `src/components/common/Heading.jsx`                | Heading primitive: `tagline`, `title`, `paragraph`, `align`. Reusable untuk section heading dengan border-bottom.     |
-| `src/components/common/LegalTOC.jsx`                | Shared Table of Contents for legal pages: `LegalMobileTOC` (mobile dropdown) and `LegalDesktopTOC` (sticky sidebar).  |
+|| `src/components/common/Card.jsx`                   | Card primitives: `Card`, `CardHeader`, `CardTitle`, `CardDescription`, `CardContent`, `CardFooter`, `CardBadge`.      |
+|| `src/components/common/Heading.jsx`                | Heading primitive: `tagline`, `title`, `paragraph`, `align`. Reusable untuk section heading dengan border-bottom.     |
+|| `src/components/common/CornerOverlay.jsx`          | Decorative dot grid pattern overlay + optional viewfinder corner brackets (dipakai di Projects grid cards).           |
+|| `src/components/common/LegalTOC.jsx`                | Shared Table of Contents for legal pages: `LegalMobileTOC` (mobile dropdown) and `LegalDesktopTOC` (sticky sidebar).  |
 || `src/components/common/OfflineNotice.jsx`           | Global connection status banner: appears app-wide when offline, shows brief confirmation when reconnected.            |
 || `src/components/common/ErrorBoundary.jsx`           | React Error Boundary (Class Component): catches unhandled JS errors in render tree, displays fallback UI instead of white screen of death. |
 || `src/components/layouts/navbar/Navbar.jsx`         | Fixed header: logo, nav links (menggunakan NavigationLink), theme toggle, mobile dropdown menu.                       |
@@ -278,9 +288,10 @@ fractabase-interactive/
 | `src/components/layouts/footer/FooterLink.jsx`     | Footer link reusable: mendukung route (`Link`) atau anchor (`a`), hover underline animation.                          |
 | `src/pages/home/Home.jsx`                          | Home page. Gabungan section: Hero, Services, ValueProposition, WorkProcess, Project, Contact.                         |
 | `src/pages/home/Home.module.css`                   | CSS Module untuk Home: background pattern hero (SVG fractal) & work-process.                                          |
-| `src/pages/about-us/AboutUs.jsx`                   | About Us page. Gabungan section: Hero, Story, VisionMission, Values, Team, CTA.                                       |
-| `src/pages/services/Services.jsx`                  | Services page. Gabungan section: Hero, DetailService, EngagementModel, ProvenResult, FAQ, CTA.                        |
-| `src/pages/privacy-policy/PrivacyPolicy.jsx`       | Privacy Policy page. Perakit: PrivacyPolicyHeader + PrivacyPolicySection (loop PrivacySectionCard).                   |
+|| `src/pages/about-us/AboutUs.jsx`                   | About Us page. Gabungan section: Hero, Story, VisionMission, Values, Team, CTA.                                       |
+|| `src/pages/services/Services.jsx`                  | Services page. Gabungan section: Hero, DetailService, EngagementModel, ProvenResult, FAQ, CTA.                        |
+|| `src/pages/projects/Projects.jsx`                 | Projects page. Gabungan section: BackgroundDecorations, HeaderSection, GridSection, CTASection + page-level parallax engine. |
+|| `src/pages/privacy-policy/PrivacyPolicy.jsx`       | Privacy Policy page. Perakit: PrivacyPolicyHeader + PrivacyPolicySection (loop PrivacySectionCard).                   |
 | `src/pages/terms-and-conditions/TermsAndConditions.jsx` | Terms & Conditions page. Perakit: TermsAndConditionsHeader + TermsAndConditionsSection (loop TermsSectionCard).  |
 || `src/pages/under-maintenance/UnderMaintenance.jsx` | Halaman placeholder "Under Maintenance" untuk rute yang belum siap (/projects, /contact). Perakit: UnderMaintenanceSection. |
 || `src/pages/not-found/NotFound.jsx`                 | Halaman 404 Not Found (catch-all route path="*"). Perakit: NotFoundSection dengan animasi 404 & partikel canvas.    |
@@ -305,9 +316,13 @@ fractabase-interactive/
 | `src/features/services/ProvenResultSection.jsx`    | Bukti hasil: animated metrics strip + case highlights.                                                                 |
 | `src/features/services/FAQSection.jsx`             | FAQ: accordion pertanyaan umum layanan.                                                                                |
 | `src/features/services/CTASection.jsx`             | Call-to-action: konsultasi gratis, link ke contact.                                                                    |
-| `src/features/services/ServicesBackground.jsx`     | Background decoration: animated elements untuk Services page.                                                          |
-| `src/features/services/AnimatedCounter.jsx`        | Utility component: animated number counter untuk metrics/stats.                                                        |
-| `src/features/privacy-policy/PrivacyPolicyHeader.jsx` | Privacy Policy header: title, last updated, intro text.                                                              |
+|| `src/features/services/ServicesBackground.jsx`     | Background decoration: animated elements untuk Services page.                                                          |
+|| `src/features/services/AnimatedCounter.jsx`        | Utility component: animated number counter untuk metrics/stats.                                                        |
+|| `src/features/projects/BackgroundDecorations.jsx`  | Multi-layer parallax scroll background: wireframes, coordinate telemetry, ambient glows. GSAP ScrollTrigger.           |
+|| `src/features/projects/HeaderSection.jsx`          | Projects Header: tagline, title, intro paragraph, dynamic stats row dengan page-level parallax.                        |
+|| `src/features/projects/GridSection.jsx`            | Filter pills + 3-col portfolio grid dengan CornerOverlay brackets, result box, tech stack, 3-plane scroll parallax per card. |
+|| `src/features/projects/CTASection.jsx`             | Projects CTA: custom project consultation prompt dengan parallax heading.                                              |
+|| `src/features/privacy-policy/PrivacyPolicyHeader.jsx` | Privacy Policy header: title, last updated, intro text.                                                              |
 | `src/features/privacy-policy/PrivacyPolicySection.jsx` | Privacy Policy main: TOC (mobile/desktop) + section cards loop.                                                     |
 | `src/features/privacy-policy/PrivacySectionCard.jsx` | Privacy Policy card: individual section content dengan highlight boxes.                                              |
 | `src/features/terms-and-conditions/TermsAndConditionsHeader.jsx` | Terms & Conditions header: title, last updated, intro text.                                             |
@@ -332,8 +347,9 @@ fractabase-interactive/
 | `src/hooks/useOnlineStatus.js`                     | Custom hook untuk melacak status online/offline browser via navigator.onLine & window events.                        |
 | `src/hooks/useScrollSpy.js`                        | Custom hook scroll-spy untuk legal page TOC (IntersectionObserver-based).                                             |
 | `src/hooks/useParticleNetwork.js`                  | Custom hook untuk canvas particle network animation — autonomous particles + proximity connections + cursor gravity.  |
-| `src/utils/validators.js`                          | Fungsi validasi: email regex, phone length, required field.                                                           |
-| `src/utils/formatPhoneNumber.js`                   | Fungsi format nomor telepon menjadi format Indonesia (xxx-xxxx-xxxx).                                                 |
+|| `src/utils/validators.js`                          | Fungsi validasi: email regex, phone length, required field.                                                           |
+|| `src/utils/formatPhoneNumber.js`                   | Fungsi format nomor telepon menjadi format Indonesia (xxx-xxxx-xxxx).                                                 |
+|| `src/utils/projectHelpers.jsx`                     | Helper Projects: CATEGORY_STYLES (mapping category → brand tokens), getCategoryStyle, renderHighlight (bold numbers). |
 
 ---
 
@@ -367,6 +383,11 @@ App (ThemeProvider > BrowserRouter > AppRoutes)
   │       │   ├── EngagementModelSection
   │       │   ├── ProvenResultSection
   │       │   ├── FAQSection
+  │       │   └── CTASection
+  │       ├── Projects ("/projects")
+  │       │   ├── BackgroundDecorations
+  │       │   ├── HeaderSection
+  │       │   ├── GridSection
   │       │   └── CTASection
   │       ├── PrivacyPolicy ("/privacy-policy")
   │       │   ├── PrivacyPolicyHeader
@@ -594,3 +615,5 @@ Tujuannya agar file ini tetap menjadi **source of truth** struktur project — b
 | 2026-09-24 | **feat/error-pages**: (1) Tambah `src/features/not-found/NotFoundSection.jsx` (404 page: broken fractal motif, mouse-driven parallax shapes, dual CTA pattern, quick nav links), (2) Tambah `src/pages/not-found/NotFound.jsx` (catch-all route `path="*"`), (3) Full-viewport without scroll: `h-screen overflow-hidden` pada main dan section, (4) Conditional footer hiding: route metadata di App.jsx, Footer baca dari useLocation, (5) 60-30-10 color discipline enforced, NO background grid (AI slop), clean geometric brand motifs. |
 | 2026-09-26 | **feat/offline-notice**: (1) Tambah `src/components/common/OfflineNotice.jsx` (global connection status banner: floating corner badge dengan dark glassmorphism dan radar pulse animation), (2) Tambah `src/hooks/useOnlineStatus.js` (track browser online/offline status via navigator.onLine & window events), (3) Update `src/hooks/useContactForm.js` — network error detection via useOnlineStatus, form error state untuk network failure, (4) Update `src/features/home/ContactSection.jsx` — display network error message saat offline/submit gagal, (5) App.jsx refactor: split menjadi AppRoutes wrapper component untuk conditional footer rendering, OfflineNotice mount setelah Navbar, (6) Amber styling untuk connectivity warnings, aria-live="polite" accessibility. |
 | 2026-09-26 | **feat/error-pages**: (1) Tambah `src/components/common/ErrorBoundary.jsx` (React Class Component Error Boundary untuk menangkap runtime crash & unhandled JS errors), (2) Tambah `src/features/server-error/ServerErrorSection.jsx` & `src/pages/server-error/ServerError.jsx` (halaman 500 React dengan partikel network & GSAP entrance), (3) Tambah `public/500.html` (static HTML fallback untuk Vercel edge/CDN level 500 error), (4) Tambah rute `/500` di `src/App.jsx` & bungkus `<Routes>` dengan `<ErrorBoundary>`, (5) Tambah ikon `RefreshCw` dan `AlertTriangle` di `src/components/common/Icons.jsx`. |
+|| 2026-09-27 | **feat/projects**: (1) Redesain `src/features/projects/HeaderSection.jsx` dengan tata letak 2 kolom studio-grade, narasi kredensial, dan visual blueprint skematik fraktal interaktif dengan mouse-tilt & floating badges, (2) Redesain total `src/features/projects/GridSection.jsx` dengan adopsi penuh komponen inti `Card`, `CardHeader`, `CardTag`, `CardTitle`, `CardDescription`, `CardFooter`, `CardBadge` dari `src/components/common/Card.jsx` serta `Heading` dari `src/components/common/Heading.jsx`, (3) Filter pills dibungkus bersih di bawah heading tanpa scrollbar (`flex-wrap`), (4) Semua 9 proyek ditampilkan setara dalam grid 3-kolom yang konsisten dan elegan (menghilangkan 1 card full width yang tidak bermakna), (5) Penerapan GSAP Multi-plane Scroll Parallax yang kompleks (offset depth continuous scrub 0.2 antar kolom 1, 2, 3 dan inner image parallax window di tiap card, menghapus mouse tilt yang liar), (6) Sinkronisasi penuh 9 project dari `src/data/projects.js` dan route `/projects` aktif, (7) Tambah `src/components/common/CornerOverlay.jsx` (decorative dot grid pattern + optional viewfinder corner brackets), (8) Tambah `src/utils/projectHelpers.jsx` (CATEGORY_STYLES, getCategoryStyle, renderHighlight). |
+|| 2026-09-30 | **fix/projects-parallax**: (1) **Fix idle floating** di `src/features/projects/BackgroundDecorations.jsx` — koordinat telemetry 9px dapat `will-change-transform` + `force3D: true` agar tidak pixel-snap saat drift lambat, plus rotasi mikro organic 1.5-3 derajat dengan durasi varied 8-13s (sebelumnya 7/9/11/13s tanpa rotasi sehingga terlihat patah-patah), (2) **Fix scroll parallax** background — `layerNearRef` sebelumnya punya ref tapi TIDAK punya ScrollTrigger, sehingga "near layer" benar-benar diam; sekarang dapat plane parallax sendiri (y 60 ke -260, scrub 0.15) berbeda dari deep layer (y 0 ke -120, scrub 0.3) sehingga background jadi multi-plane nyata, (3) **Tambah page-level parallax engine** di `src/pages/projects/Projects.jsx` — semua elemen ber-`data-parallax-depth` (dengan opsional `data-parallax-scrub`) otomatis di-translate kontinu dan bidirectional saat scroll; dipasang pada blok stats row (depth -40), header copy (26), CTA heading (22), dan telemetry bar (10), (4) **Tambah 3-plane parallax per kartu** di `src/features/projects/GridSection.jsx` — wrapper `.project-parallax-frame` (drift horizontal asimetris per kolom via `gsap.matchMedia`: 24px @lg dengan scrub 0.22/0.3/0.38, 10px @md, nonaktif di single-column) + `[data-parallax-media]` (drift vertikal yPercent 7 dengan scale 1.2-1.28 di dalam `overflow-hidden` mask, scrub 0.18) + `[data-parallax-content]` (counter-drift vertikal 14px, scrub 0.45) sehingga motion 3 lapis berbeda kecepatan dalam 1 kartu, (5) **TIDAK ada tilt di Card** — semua motion dipindah ke wrapper + inner media/content, primitive `Card` tetap `transition-all` seperti semula, (6) `will-change` dinamis via ScrollTrigger `onEnter`/`onLeave` (dilepas saat keluar viewport), (7) Pencegahan collision: kolom kanan CTA tidak diberi `data-parallax-depth` karena sudah punya tween scrub sendiri pada `x`/`y` yang akan bertabrakan. |
