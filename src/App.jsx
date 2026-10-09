@@ -4,6 +4,7 @@ import Navbar from "./components/layouts/navbar/Navbar";
 import Footer from "./components/layouts/footer/Footer";
 import AboutUs from "./pages/about-us/AboutUs";
 import Services from "./pages/services/Services";
+import Projects from "./pages/projects/Projects";
 import PrivacyPolicy from "./pages/privacy-policy/PrivacyPolicy";
 import TermsAndConditions from "./pages/terms-and-conditions/TermsAndConditions";
 import { ThemeProvider } from "./theme/ThemeProvider";
@@ -25,7 +26,7 @@ export default function App() {
 
 function AppRoutes() {
   const location = useLocation();
-  const routesWithoutFooter = ["/projects", "/contact", "/500"];
+  const routesWithoutFooter = ["/contact", "/500"];
   const shouldShowFooter = !routesWithoutFooter.includes(location.pathname);
 
   return (
@@ -37,7 +38,7 @@ function AppRoutes() {
           <Route path="/" index element={<Home />} />
           <Route path="/about-us" element={<AboutUs />} />
           <Route path="/services" element={<Services />} />
-          <Route path="/projects" element={<UnderMaintenance />} />
+          <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<UnderMaintenance />} />
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
           <Route path="/terms-and-conditions" element={<TermsAndConditions />} />
