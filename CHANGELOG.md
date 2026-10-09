@@ -2,6 +2,33 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.7.0](https://github.com/fractabase/company-profile/compare/v0.6.0...v0.7.0) (2026-10-09)
+
+
+### Features
+
+* **background-decorations:** add ProjectsBackgroundDecorations component with parallax effects ([fc377d5](https://github.com/fractabase/company-profile/commit/fc377d5f9f25389d6985f9b89f778454b51390a7))
+* **corner-overlay:** add CornerOverlay component with optional bracket display ([19aed92](https://github.com/fractabase/company-profile/commit/19aed92a29b8265993dc251ca7de958ce1261cee))
+* **header-section:** add ProjectsHeader component to display project statistics ([0c0b744](https://github.com/fractabase/company-profile/commit/0c0b744720ad2c6e0c565faaef403a805e122aa0))
+* **icons:** add TrendingUp icon component to Icons ([8dc5cfe](https://github.com/fractabase/company-profile/commit/8dc5cfe11fc62354591bad428fe96473beded724))
+* **project-data:** update project data structure and add new project entries ([1ddffce](https://github.com/fractabase/company-profile/commit/1ddffceb8467918ef5b6d72cbe9388e3bce809bb))
+* **project-helpers:** add CATEGORY_STYLES and utility functions for category styling ([4fbcd13](https://github.com/fractabase/company-profile/commit/4fbcd13d8aad347f7e989e75b409e6f37cd6becb))
+* **projects-cta:** add ProjectsCTASection component with GSAP animations and custom project discussion link ([26b6fc2](https://github.com/fractabase/company-profile/commit/26b6fc22adcb7f44e559a897e96bd61e5cdd5fad))
+* **projects-grid:** implement ProjectsGrid component with filtering and parallax effects ([de5b0b1](https://github.com/fractabase/company-profile/commit/de5b0b16b8cf3b1cb4e83dac2850713e9a9f9e1c))
+* **projects:** create Projects component with GSAP animations and responsive sections ([d3593a8](https://github.com/fractabase/company-profile/commit/d3593a8bf2b211b99ae02653cb03f0b20c462d01))
+* **projects:** update Projects route to render Projects component instead of UnderMaintenance ([2e3b0fd](https://github.com/fractabase/company-profile/commit/2e3b0fdbca6519f5264cae400b143afb0843efff))
+
+
+### Refactoring
+
+* **navbar:** update NAV_LINKS to replace Portfolio with Projects route ([591a454](https://github.com/fractabase/company-profile/commit/591a4541b52b9737bac39988e4454e2d04045dad))
+* **project-section:** move renderHighlight function to utils ([a5cf2f1](https://github.com/fractabase/company-profile/commit/a5cf2f1e40e430ae3cb29f70168151ebe8998052))
+
+
+### Documentation
+
+* **structure-project.md:** document Projects section components and folder structure ([374d38a](https://github.com/fractabase/company-profile/commit/374d38a5b65d0b4331a5031d67c1244208d0ac0b))
+
 ## [0.6.0](https://github.com/fractabase/company-profile/compare/v0.5.0...v0.6.0) (2026-09-26)
 
 
