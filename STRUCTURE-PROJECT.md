@@ -13,7 +13,6 @@ fractabase-interactive/
 ├── package-lock.json             # Lock file dependencies
 ├── vite.config.js                # Konfigurasi Vite + plugin React & Tailwind
 ├── eslint.config.js              # Konfigurasi ESLint (flat config)
-├── vercel.json                   # Konfigurasi runtime Vercel Serverless Functions (nodejs20.x)
 ├── README.md                     # Dokumentasi project (overview, setup, scripts)
 ├── CHANGELOG.md                  # Riwayat perubahan versi (standard-version)
 ├── STRUCTURE-PROJECT.md          # File ini — peta struktur project
