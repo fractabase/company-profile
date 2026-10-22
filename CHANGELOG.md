@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.8.1](https://github.com/fractabase/company-profile/compare/v0.8.0...v0.8.1) (2026-10-22)
+
+
+### Bug Fixes
+
+* **vercel:** update runtime for contact API function to nodejs24.x ([e80272d](https://github.com/fractabase/company-profile/commit/e80272d5a0ece03fc6f75d9ebf48cd7f44ef7c1d))
+
 ## [0.8.0](https://github.com/fractabase/company-profile/compare/v0.7.0...v0.8.0) (2026-10-22)
 
 
