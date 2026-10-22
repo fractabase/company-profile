@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 function BrowserMockup() {
   return (
     <div className="relative w-96 animate-[float_6s_ease-in-out_infinite]">
@@ -117,20 +119,21 @@ export default function HeroSection({ className }) {
             </p>
 
             <div className="flex max-sm:flex-col gap-3">
-              <a
-                href="/#Contact"
+              <Link
+                to="/contact"
                 className="py-2 px-5 border border-primary rounded-xl bg-primary text-dark text-xl text-center transition hover:text-shadow-xs shadow hover:shadow-lg hover:translate-y-0.5"
                 role="button"
               >
                 Mulai Diskusi
-              </a>
+              </Link>
 
-              <button
-                type="button"
+              <Link
+                to="/services"
                 className="py-2 px-5 border border-primary rounded-xl text-primary text-xl transition hover:bg-primary/10 focus:bg-primary/10 shadow hover:shadow-lg hover:translate-y-0.5"
+                role="button"
               >
                 Lihat Layanan
-              </button>
+              </Link>
             </div>
           </div>
 

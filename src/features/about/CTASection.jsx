@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { TextPlugin } from "gsap/TextPlugin";
 import { Icons } from "../../components/common/Icons";
+import { Link } from "react-router-dom";
 
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
@@ -189,21 +190,21 @@ const AboutCTASection = () => {
 
             {/* Action Buttons */}
             <div className="pt-6 border-t border-line space-y-3.5">
-              <a
-                href="/#Contact"
+              <Link
+                to="/contact"
                 className="w-full inline-flex items-center justify-center gap-3 px-8 py-4 rounded-xl bg-primary text-dark font-bold text-base shadow-lg shadow-primary/20 hover:bg-primary-soft hover:shadow-xl transition-all duration-300 hover:-translate-y-0.5 group"
               >
                 <span>Mulai Sesi Konsultasi Proyek</span>
                 <Icons.ArrowRight className="w-5 h-5 duration-300 group-hover:translate-x-0.5" />
-              </a>
+              </Link>
 
-              <a
-                href="/services"
+              <Link
+                to="/services"
                 className="w-full inline-flex items-center justify-center gap-2.5 px-8 py-3.5 rounded-xl bg-surface dark:bg-dark-surface text-primary-color border border-line hover:border-primary/50 font-semibold text-sm hover:bg-primary/20 transition-all duration-300 group"
               >
                 <span>Eksplorasi Katalog Solusi Digital</span>
                 <Icons.ExternalLink className="w-4 h-4 text-primary duration-300 group-hover:translate-x-0.5 group-hover:-translate-0.5 group-hover:scale-110" />
-              </a>
+              </Link>
 
               <div className="text-center font-mono text-[11px] text-secondary-color pt-2">
                 Waktu respon rata-rata tim: &lt; 24 jam kerja
