@@ -2,6 +2,39 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.8.0](https://github.com/fractabase/company-profile/compare/v0.7.0...v0.8.0) (2026-10-22)
+
+
+### Features
+
+* **contact:** add ContactBackground component with animated canvas and scroll effects ([24a115d](https://github.com/fractabase/company-profile/commit/24a115d4b4846874312f589c1be7b074920000f4))
+* **contact:** add CountryCodeDropdown component for reusable country code selection ([ae051f3](https://github.com/fractabase/company-profile/commit/ae051f38b4cd2cf7b0bc097ed0e5918153657ed0))
+* **contact:** add CTASection component to replace contact form ([41c3b09](https://github.com/fractabase/company-profile/commit/41c3b09f71d8a6eff446f36e82a05497d2bbab83))
+* **contact:** add FAQSection component with GSAP animations and dynamic FAQ handling ([9205ae2](https://github.com/fractabase/company-profile/commit/9205ae2c1ebe9e338324d8238334d12507b182a5))
+* **contact:** add HeaderSection component with GSAP animations and stats display ([555e30e](https://github.com/fractabase/company-profile/commit/555e30ec6ac17cf4e39cedeae29900a921cef710))
+* **contact:** add InfoCardsSection component with GSAP animations for contact channels and process timeline ([eb3ffea](https://github.com/fractabase/company-profile/commit/eb3ffeae37983fecf630b258698364a64f831250))
+* **contact:** add Vercel configuration for contact API function ([a7abe70](https://github.com/fractabase/company-profile/commit/a7abe70ed5ec0211090ba1ea2dc33bb0c01ab459))
+* **contact:** create backend API and implement email handler for contact form submissions ([9555b75](https://github.com/fractabase/company-profile/commit/9555b75c26137699150ad4f816098fa5a596fea6))
+* **contact:** enhance useContactForm with default project types and improved error handling ([6f13cba](https://github.com/fractabase/company-profile/commit/6f13cba47cffbcce049301ff37bbd22b1cecebfe))
+* **contact:** implement Contact page with GSAP animations and responsive layout ([5471eac](https://github.com/fractabase/company-profile/commit/5471eac4bb095776ccdba0a0901976e971470ac8))
+* **contact:** implement FormWrapper component with form handling and submission features ([04b7bee](https://github.com/fractabase/company-profile/commit/04b7bee2ca9d606ac2f400873812080e0b4cce10))
+* **contact:** update contact information and add new communication channels ([e4b1ed9](https://github.com/fractabase/company-profile/commit/e4b1ed93a51ca2be352270978d99cac8ae357472))
+* **contact:** update contact route to render Contact component instead of UnderMaintenance ([a568965](https://github.com/fractabase/company-profile/commit/a5689652bc3200b742efebbadbb91b6f81cf5390))
+* **contact:** update project types for clarity and consistency ([02c42ac](https://github.com/fractabase/company-profile/commit/02c42ac6567dd4d95738b5d852a7de472c985d09))
+* **dependencies:** add nodemailer for email handling ([3257394](https://github.com/fractabase/company-profile/commit/32573944ef3b60edb85028f329187cef30c1688d))
+
+
+### Refactoring
+
+* **home:** replace ContactSection with CTASection in Home component ([a3063ff](https://github.com/fractabase/company-profile/commit/a3063ff2374b201dbabed2e9698d0818efd6d9bb))
+* **navigation:** replace anchor tags with Link components in About and Home pages ([67e844c](https://github.com/fractabase/company-profile/commit/67e844c10f133b188faf843779721b40bd5ac204))
+* **navigation:** update Navbar and Footer to use consistent routing for the Contact page ([ae7b934](https://github.com/fractabase/company-profile/commit/ae7b934b9caa89060bbe65752ab988e4a1bef3d0))
+
+
+### Documentation
+
+* **structure-project:** document API folder, Vercel configuration, and contact form email backend ([f006a15](https://github.com/fractabase/company-profile/commit/f006a152805bae5afc0119d0a15b51858c5aea2f))
+
 ## [0.7.0](https://github.com/fractabase/company-profile/compare/v0.6.0...v0.7.0) (2026-10-09)
 
 
