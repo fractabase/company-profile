@@ -8,9 +8,9 @@ import { FooterLink } from "./FooterLink";
 
 const footerNavLinks = [
   { label: "Layanan", href: "/services", isRoute: true },
-  { label: "Portfolio", href: "/#Portfolio" },
-  { label: "Alur Kerja", href: "/#WorkProcess" },
+  { label: "Projects", href: "/projects", isRoute: true },
   { label: "Tentang Kami", href: "/about-us", isRoute: true },
+  { label: "Kontak", href: "/contact", isRoute: true },
   { label: "Kebijakan Privasi", href: "/privacy-policy", isRoute: true },
   { label: "Syarat dan Ketentuan", href: "/terms-and-conditions", isRoute: true },
 ];
@@ -50,7 +50,7 @@ export default function Footer() {
             <ColumnHeading>Navigasi</ColumnHeading>
 
             <nav className="flex flex-col gap-3">
-              {footerNavLinks.slice(0, 4).map((item) => (
+              {footerNavLinks.slice(0, 5).map((item) => (
                 <FooterLink key={item.label} href={item.href} isRoute={item.isRoute}>
                   {item.label}
                 </FooterLink>
@@ -117,13 +117,13 @@ export default function Footer() {
               })}
             </div>
 
-            <a
-              href="#Contact"
+            <Link
+              to="/contact"
               className="lg:mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 font-semibold text-dark transition duration-200 hover:brightness-95 group"
             >
               <span>Diskusikan Proyek</span>
               <Icons.ArrowRight className="h-5 w-5 group-hover:translate-x-2 transition-transform duration-200 ease-(--ease)" />
-            </a>
+            </Link>
           </div>
         </div>
 
@@ -136,7 +136,7 @@ export default function Footer() {
               <ThemeToggle />
 
               <div className="flex items-center gap-6">
-                {footerNavLinks.slice(4).map((item) => (
+                {footerNavLinks.slice(5).map((item) => (
                   <Link
                     key={item.label}
                     to={item.href}

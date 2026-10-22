@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { ThemeToggle } from "../../../theme/ThemeToggle";
 import { Icons } from "../../common/Icons";
 import { NavigationLink } from "./NavigationLink";
 
 const NAV_LINKS = [
+  { href: "/", label: "Beranda", isRoute: true },
   { href: "/services", label: "Layanan", isRoute: true },
-  { href: "/#ValueProposition", label: "Proposisi Nilai", isRoute: false },
-  { href: "/#WorkProcess", label: "Alur Kerja", isRoute: false },
   { href: "/projects", label: "Projects", isRoute: true },
   { href: "/about-us", label: "Tentang Kami", isRoute: true },
 ];
@@ -48,7 +48,7 @@ export default function Navbar() {
         </a>
 
         {/* Desktop navigation */}
-        <nav className="hidden lg:flex items-center gap-4 lg:gap-6">
+        <nav className="hidden lg:flex items-center gap-4 lg:gap-6 ms-auto me-8">
           {NAV_LINKS.map(({ href, label, isRoute }) => (
             <NavigationLink key={href} href={href} label={label} isRoute={isRoute} device="desktop" />
           ))}
@@ -59,13 +59,13 @@ export default function Navbar() {
           <ThemeToggle />
 
           {/* Desktop CTA */}
-          <a
-            href="/#Contact"
+          <Link
+            to="/contact"
             className="hidden lg:inline-flex items-center bg-primary hover:bg-primary-soft text-dark py-1.5 px-4 md:px-5 rounded-lg hover:shadow-md transition text-sm md:text-base"
             role="button"
           >
             Contact
-          </a>
+          </Link>
 
           {/* Hamburger button */}
           <button
@@ -109,8 +109,8 @@ export default function Navbar() {
           })}
 
           {/* Mobile CTA */}
-          <a
-            href="/#Contact"
+          <Link
+            to="/contact"
             onClick={closeMenu}
             className="mt-2 mb-1 bg-primary text-dark py-2.5 px-5 rounded-lg text-center font-medium transition-all duration-300 ease-(--ease)"
             style={{
@@ -120,7 +120,7 @@ export default function Navbar() {
             }}
           >
             Contact
-          </a>
+          </Link>
         </nav>
       </div>
     </header>
