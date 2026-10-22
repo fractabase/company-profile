@@ -1,9 +1,10 @@
 export const PROJECT_TYPES = [
+  "Website Development",
   "Web Application",
-  "Mobile App",
+  "Mobile Application",
   "Custom Software",
-  "System Integration",
-  "IT Talent",
+  "System Integration & Automation",
+  "IT Talent Augmentation",
 ];
 
 export const BUDGET_RANGES = [
