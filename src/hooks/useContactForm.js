@@ -28,8 +28,15 @@ const INITIAL_TOUCHED = {
   message: false,
 };
 
-export function useContactForm({ onSubmit } = {}) {
-  const [formData, setFormData] = useState(INITIAL_FORM_DATA);
+export function useContactForm({
+  onSubmit,
+  defaultProjectTypes = ["Web Application"],
+  allowEmptyProjectTypes = false,
+} = {}) {
+  const [formData, setFormData] = useState(() => ({
+    ...INITIAL_FORM_DATA,
+    projectTypes: defaultProjectTypes,
+  }));
   const [phoneState, setPhoneState] = useState(INITIAL_PHONE_STATE);
   const [optionalOpen, setOptionalOpen] = useState(false);
   const [touched, setTouched] = useState(INITIAL_TOUCHED);
@@ -39,57 +46,72 @@ export function useContactForm({ onSubmit } = {}) {
   const [submitStatus, setSubmitStatus] = useState(null);
   const isOnline = useOnlineStatus();
 
-  const fieldIds = useMemo(() => ({
-    name: "contact-name",
-    email: "contact-email",
-    phone: "contact-phone",
-    company: "contact-company",
-    projectTypes: "contact-project-types",
-    budgetRange: "contact-budget",
-    timeTarget: "contact-time",
-    message: "contact-message",
-  }), []);
+  const fieldIds = useMemo(
+    () => ({
+      name: "contact-name",
+      email: "contact-email",
+      phone: "contact-phone",
+      company: "contact-company",
+      projectTypes: "contact-project-types",
+      budgetRange: "contact-budget",
+      timeTarget: "contact-time",
+      message: "contact-message",
+    }),
+    [],
+  );
 
   const handleChange = useCallback((field, value) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
   }, []);
 
-  const handlePhoneInputChange = useCallback((inputValue) => {
-    const rawDigits = inputValue.replace(/\D/g, "");
-    const limitedDigits = rawDigits.slice(0, 13);
-    const display = formatPhoneNumber(limitedDigits);
-    const fullNumber = phoneState.countryCode + limitedDigits;
+  const handlePhoneInputChange = useCallback(
+    (inputValue) => {
+      const rawDigits = inputValue.replace(/\D/g, "");
+      const limitedDigits = rawDigits.slice(0, 13);
+      const display = formatPhoneNumber(limitedDigits);
+      const fullNumber = phoneState.countryCode + limitedDigits;
 
-    setPhoneState((prev) => ({
-      countryCode: prev.countryCode,
-      raw: limitedDigits,
-      display: display,
-    }));
+      setPhoneState((prev) => ({
+        countryCode: prev.countryCode,
+        raw: limitedDigits,
+        display: display,
+      }));
 
-    setFormData((prev) => ({ ...prev, phone: fullNumber }));
-  }, [phoneState.countryCode]);
+      setFormData((prev) => ({ ...prev, phone: fullNumber }));
+    },
+    [phoneState.countryCode],
+  );
 
-  const handleCountryCodeChange = useCallback((newCode) => {
-    const fullNumber = newCode + phoneState.raw;
-    setPhoneState((prev) => ({
-      countryCode: newCode,
-      raw: prev.raw,
-      display: prev.display,
-    }));
-    setFormData((prev) => ({ ...prev, phone: fullNumber }));
-  }, [phoneState.raw]);
+  const handleCountryCodeChange = useCallback(
+    (newCode) => {
+      const fullNumber = newCode + phoneState.raw;
+      setPhoneState((prev) => ({
+        countryCode: newCode,
+        raw: prev.raw,
+        display: prev.display,
+      }));
+      setFormData((prev) => ({ ...prev, phone: fullNumber }));
+    },
+    [phoneState.raw],
+  );
 
   const handleBlur = useCallback((field) => {
     setTouched((prev) => ({ ...prev, [field]: true }));
   }, []);
 
-  const toggleProjectType = useCallback((type) => {
-    setFormData((prev) => {
-      const current = prev.projectTypes;
-      const updated = current.includes(type) ? current.filter((t) => t !== type) : [...current, type];
-      return { ...prev, projectTypes: updated.length > 0 ? updated : ["Web Application"] };
-    });
-  }, []);
+  const toggleProjectType = useCallback(
+    (type) => {
+      setFormData((prev) => {
+        const current = prev.projectTypes;
+        const updated = current.includes(type) ? current.filter((t) => t !== type) : [...current, type];
+        if (allowEmptyProjectTypes) {
+          return { ...prev, projectTypes: updated };
+        }
+        return { ...prev, projectTypes: updated.length > 0 ? updated : defaultProjectTypes };
+      });
+    },
+    [allowEmptyProjectTypes, defaultProjectTypes],
+  );
 
   const getErrors = useCallback(() => {
     const errors = {};
@@ -124,9 +146,12 @@ export function useContactForm({ onSubmit } = {}) {
   const errors = getErrors();
   const hasErrors = Object.keys(errors).length > 0;
 
-  const shouldShowError = useCallback((field) => {
-    return submitAttempted || touched[field];
-  }, [submitAttempted, touched]);
+  const shouldShowError = useCallback(
+    (field) => {
+      return submitAttempted || touched[field];
+    },
+    [submitAttempted, touched],
+  );
 
   const scrollToFirstError = useCallback(() => {
     const fieldOrder = ["name", "email", "phone", "projectTypes", "message"];
@@ -142,64 +167,81 @@ export function useContactForm({ onSubmit } = {}) {
     }
   }, [errors, fieldIds]);
 
-  const handleSubmit = useCallback(async (event) => {
-    event.preventDefault();
-    setSubmitAttempted(true);
-    setTouched({
-      name: true,
-      email: true,
-      phone: true,
-      projectTypes: true,
-      message: true,
-    });
+  const handleSubmit = useCallback(
+    async (event) => {
+      event.preventDefault();
+      setSubmitAttempted(true);
+      setTouched({
+        name: true,
+        email: true,
+        phone: true,
+        projectTypes: true,
+        message: true,
+      });
 
-    if (hasErrors) {
-      scrollToFirstError();
-      return;
-    }
-
-    // Check network status before attempting submission
-    if (!isOnline) {
-      setSubmitStatus("network-error");
-      return;
-    }
-
-    setIsSubmitting(true);
-    setSubmitStatus(null);
-
-    try {
-      if (onSubmit) {
-        await onSubmit(formData);
-      } else {
-        console.log("Form submitted:", formData);
-        await new Promise((resolve) => setTimeout(resolve, 1500));
+      if (hasErrors) {
+        scrollToFirstError();
+        return;
       }
 
-      setSubmitStatus("success");
-      setSubmitted(true);
-      setFormData(INITIAL_FORM_DATA);
-      setPhoneState(INITIAL_PHONE_STATE);
-      setTouched(INITIAL_TOUCHED);
-      setSubmitAttempted(false);
-    } catch (error) {
-      // Detect network-specific errors
-      const isNetworkError = 
-        error instanceof TypeError && 
-        (error.message.includes("fetch") || error.message.includes("network"));
-      
-      setSubmitStatus(isNetworkError || !isOnline ? "network-error" : "error");
-    } finally {
-      setIsSubmitting(false);
-    }
-  }, [formData, hasErrors, onSubmit, scrollToFirstError, isOnline]);
+      // Check network status before attempting submission
+      if (!isOnline) {
+        setSubmitStatus("network-error");
+        return;
+      }
+
+      setIsSubmitting(true);
+      setSubmitStatus(null);
+
+      try {
+        if (onSubmit) {
+          await onSubmit(formData);
+        } else {
+          const response = await fetch("/api/contact", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          });
+
+          if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.message || "Gagal mengirim pesan.");
+          }
+        }
+
+        setSubmitStatus("success");
+        setSubmitted(true);
+        setFormData(INITIAL_FORM_DATA);
+        setPhoneState(INITIAL_PHONE_STATE);
+        setTouched(INITIAL_TOUCHED);
+        setSubmitAttempted(false);
+      } catch (error) {
+        // Detect network-specific errors
+        const isNetworkError =
+          error instanceof TypeError && (error.message.includes("fetch") || error.message.includes("network"));
+
+        setSubmitStatus(isNetworkError || !isOnline ? "network-error" : "error");
+      } finally {
+        setIsSubmitting(false);
+      }
+    },
+    [formData, hasErrors, onSubmit, scrollToFirstError, isOnline],
+  );
 
   const resetForm = useCallback(() => {
     setSubmitted(false);
     setSubmitStatus(null);
+    setFormData({
+      ...INITIAL_FORM_DATA,
+      projectTypes: defaultProjectTypes,
+    });
+    setPhoneState(INITIAL_PHONE_STATE);
     setTouched(INITIAL_TOUCHED);
     setSubmitAttempted(false);
     setOptionalOpen(false);
-  }, []);
+  }, [defaultProjectTypes]);
 
   return {
     formData,
