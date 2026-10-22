@@ -1,4 +1,4 @@
-import ContactSection from "../../features/home/ContactSection";
+import CTASection from "../../features/home/CTASection";
 import HeroSection from "../../features/home/HeroSection";
 import ProjectSection from "../../features/home/ProjectSection";
 import ServicesSection from "../../features/home/ServiceSection";
@@ -15,7 +15,7 @@ export default function Home() {
         <ValuePropositionSection />
         <WorkProcessSection className={styles.WorkProcess} />
         <ProjectSection />
-        <ContactSection />
+        <CTASection />
       </main>
     </>
   );
