@@ -1,5 +1,3 @@
-import nodemailer from "nodemailer";
-
 export default async function handler(req, res) {
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Method not allowed" });
@@ -11,23 +9,21 @@ export default async function handler(req, res) {
     return res.status(400).json({ message: "Field wajib harus diisi." });
   }
 
+  const selectedProjects = Array.isArray(projectTypes) ? projectTypes.join(", ") : projectTypes || "-";
+
   try {
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
+    const response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+        "Content-Type": "application/json",
       },
-    });
-
-    const selectedProjects = Array.isArray(projectTypes) ? projectTypes.join(", ") : projectTypes || "-";
-
-    const mailOptions = {
-      from: `Fractabase Form <${process.env.EMAIL_USER}>`,
-      to: process.env.EMAIL_RECEIVER || process.env.EMAIL_USER,
-      replyTo: email,
-      subject: `[Brief Proyek Baru] ${name} - ${selectedProjects}`,
-      html: `
+      body: JSON.stringify({
+        from: "Fractabase Form <info@fractabase.com>",
+        to: process.env.EMAIL_RECEIVER,
+        reply_to: email,
+        subject: `[Brief Proyek Baru] ${name} - ${selectedProjects}`,
+        html: `
       <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; border: 1px solid #e2e8f0; border-radius: 8px; padding: 24px;">
         <h2 style="color: #0f172a; border-bottom: 2px solid #38bdf8; padding-bottom: 8px;">Brief Proyek Masuk</h2>
 
@@ -78,13 +74,17 @@ export default async function handler(req, res) {
         </p>
       </div>
       `,
-    };
+      }),
+    });
 
-    await transporter.sendMail(mailOptions);
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || "Resend API error");
+    }
 
     return res.status(200).json({ success: true, message: "Email berhasil terkirim" });
   } catch (error) {
-    console.error("Nodemailer error: ", error);
+    console.error("Resend error: ", error);
 
     return res.status(500).json({
       success: false,
