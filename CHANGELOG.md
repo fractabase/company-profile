@@ -2,6 +2,24 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.9.0](https://github.com/fractabase/company-profile/compare/v0.8.0...v0.9.0) (2026-10-23)
+
+
+### Bug Fixes
+
+* **vercel:** update runtime for contact API function to nodejs24.x ([e80272d](https://github.com/fractabase/company-profile/commit/e80272d5a0ece03fc6f75d9ebf48cd7f44ef7c1d))
+
+
+### Refactoring
+
+* **contact:** replace Nodemailer with Resend API for email handling ([18950a6](https://github.com/fractabase/company-profile/commit/18950a6f5e192bd637a257db59ff0d044aa3b283))
+
+
+### Documentation
+
+* **structure-project:** remove vercel.json from project structure documentation ([ac05e18](https://github.com/fractabase/company-profile/commit/ac05e18fa04c70a8bdfc31cfd1b5ac04a3ca449b))
+* **structure-project:** update email provider from Nodemailer to Resend ([79c265f](https://github.com/fractabase/company-profile/commit/79c265face1fbdf1202b4e97da3e6c652a7fa00d))
+
 ### [0.8.1](https://github.com/fractabase/company-profile/compare/v0.8.0...v0.8.1) (2026-10-22)
 
 
